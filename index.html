@@ -199,6 +199,10 @@ var PROFILE_OVERRIDES={
     bf:'מאיה שילוני היא סטודנטית ב-Harvard University לתחומי Government and Economics ובוגרת יחידת 8200, שם שירתה בניהול פרויקטים ובניהול מוצר. בהמשך צברה ניסיון גם בזירה הציבורית והפרלמנטרית, כולל התמחות אצל חבר הקונגרס Josh Gottheimer ועבודה בכנסת ישראל. לצד זאת הובילה יוזמות סטודנטיאליות משמעותיות, ובהן Harvard College Israel Trek וה-International Israel Summit. תחומי העניין שלה כוללים משפט, מדיניות ציבורית ופוליטיקה ישראלית.',
     hl:['בוגרת יחידת 8200 עם ניסיון במודיעין ובניהול מוצר','צברה ניסיון בזירה הציבורית והפרלמנטרית בארצות הברית ובישראל','הובילה יוזמות סטודנטיאליות מרכזיות ב-Harvard ובקהילה הישראלית']
   },
+  'מאיה שילוני':{
+    n:'Maya Shiloni',
+    em:'maya_shiloni@college.harvard.edu'
+  },
   'Sagie Sharon':{
     n:'שגיא שרון',
     r:'עוסק במדיניות טכנולוגיה, חדשנות ויזמות',
@@ -229,6 +233,7 @@ var PROFILE_OVERRIDES={
 
 function applyProfileOverrides(m){
   var o=PROFILE_OVERRIDES[m.n]
+    ||(memberId(m)==='maya'?PROFILE_OVERRIDES['Maya Shiloni']:null)
     ||(/ofir-cohen-innovation/.test(m.li||'')?PROFILE_OVERRIDES['Ofir Cohen']:null)
     ||(/omriattar/.test(m.li||'')?PROFILE_OVERRIDES['Omri Attar']:null)
     ||(/aaron-s-g/.test(m.li||'')?PROFILE_OVERRIDES['Aaron Simpson-Grossman']:null)
