@@ -7,15 +7,9 @@
 <meta name="description" content="קהילה של מנהיגים צעירים מעולמות המדיניות, הביטחון, הטכנולוגיה וההשפעה הציבורית.">
 <meta property="og:title" content="NextGen Leadership Forum">
 <meta property="og:description" content="קהילה של מנהיגים צעירים מעולמות המדיניות, הביטחון, הטכנולוגיה וההשפעה הציבורית.">
-<meta property="og:image" content="https://fascinating-meringue-9cd346.netlify.app/og-preview.jpg">
-<meta property="og:url" content="https://fascinating-meringue-9cd346.netlify.app/">
-<meta property="og:image:secure_url" content="https://fascinating-meringue-9cd346.netlify.app/og-preview.jpg">
+<meta property="og:image" content="https://stately-travesseiro-a816e1.netlify.app/nextgen-leadership.png">
+<meta property="og:url" content="https://stately-travesseiro-a816e1.netlify.app/">
 <meta property="og:type" content="website">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:site_name" content="NextGen Leadership Forum">
-<meta name="twitter:image" content="https://fascinating-meringue-9cd346.netlify.app/og-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -199,6 +193,7 @@ var PROFILE_OVERRIDES={
   'Maya Shiloni':{
     r:'סטודנטית ל-Government and Economics, Harvard University',
     loc:'Harvard College',
+    em:'maya_shiloni@college.harvard.edu',
     hd:'עוסקת במדיניות ציבורית, מודיעין ומנהיגות סטודנטיאלית',
     bs:'סטודנטית ב-Harvard University לתחומי Government and Economics ובוגרת יחידת 8200. צברה ניסיון במודיעין, בניהול מוצר ובעשייה ציבורית בארצות הברית ובישראל.',
     bf:'מאיה שילוני היא סטודנטית ב-Harvard University לתחומי Government and Economics ובוגרת יחידת 8200, שם שירתה בניהול פרויקטים ובניהול מוצר. בהמשך צברה ניסיון גם בזירה הציבורית והפרלמנטרית, כולל התמחות אצל חבר הקונגרס Josh Gottheimer ועבודה בכנסת ישראל. לצד זאת הובילה יוזמות סטודנטיאליות משמעותיות, ובהן Harvard College Israel Trek וה-International Israel Summit. תחומי העניין שלה כוללים משפט, מדיניות ציבורית ופוליטיקה ישראלית.',
@@ -208,8 +203,13 @@ var PROFILE_OVERRIDES={
     n:'שגיא שרון',
     r:'עוסק במדיניות טכנולוגיה, חדשנות ויזמות',
     loc:'ישראל',
+    em:'Sagiesh.1998@gmail.com',
     bs:'פועל בממשק שבין חינוך, טכנולוגיה ויזמות, ומתמקד בשאלות של מדיניות, מוסדות ציבור והיערכות לעידן טכנולוגי משתנה.',
     bf:'שגיא שרון פועל בממשק שבין חינוך, טכנולוגיה ויזמות, ומתמקד באופן שבו מערכות ציבוריות ומוסדות חינוך נערכים לעידן טכנולוגי משתנה. הרקע שלו משלב עשייה חברתית, יוזמות חינוכיות ועבודה סביב תהליכי שינוי וחדשנות.'
+  },
+  'Omri Attar':{
+    n:'עמרי אתר',
+    em:'Mail@omriattar.com'
   },
   'Ofir Cohen':{
     r:'מועמד ל-MPA, Princeton University',
@@ -230,6 +230,7 @@ var PROFILE_OVERRIDES={
 function applyProfileOverrides(m){
   var o=PROFILE_OVERRIDES[m.n]
     ||(/ofir-cohen-innovation/.test(m.li||'')?PROFILE_OVERRIDES['Ofir Cohen']:null)
+    ||(/omriattar/.test(m.li||'')?PROFILE_OVERRIDES['Omri Attar']:null)
     ||(/aaron-s-g/.test(m.li||'')?PROFILE_OVERRIDES['Aaron Simpson-Grossman']:null)
     ||(/sagie-sharon/.test(m.li||'')?PROFILE_OVERRIDES['Sagie Sharon']:null)
     ||(/uzi-kalchaim-strategy/.test(m.li||'')?PROFILE_OVERRIDES['Uzi Kalchaim']:null);
@@ -761,7 +762,5 @@ loadSheet();
 </script>
 </body>
 </html>
-
-
 
 
