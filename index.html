@@ -316,7 +316,7 @@ function loadMembersCache(){
     var raw=localStorage.getItem(getCacheKey());
     if(!raw)return [];
     var parsed=JSON.parse(raw);
-    return Array.isArray(parsed)?parsed.map(function(m){return sanitizeIncomingMember(m)||m;}):[];
+    return Array.isArray(parsed)?parsed.map(sanitizeIncomingMember).filter(Boolean):[];
   }catch(e){return []}
 }
 function getMemberCorpus(m){return normalizeSearchText([m.n,m.r,m.loc,m.bs,m.bf,m.em].join(' '))}
@@ -500,7 +500,9 @@ function dedupeMembers(){
     if(found)mergeMemberData(found,m);
     else merged.push(m);
   });
-  MEMBERS=merged.map(applyProfileOverrides);
+  MEMBERS=merged
+    .filter(function(m){return m&&m.n&&!isCorruptedText(m.n);})
+    .map(applyProfileOverrides);
 }
 
 var LI='<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>';
