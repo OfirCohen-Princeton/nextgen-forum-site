@@ -278,7 +278,7 @@ function sanitizeIncomingMember(m){
   if(!m)return null;
   var li=oneLine(m.li||'');
   if(li&&!/^https?:\/\//i.test(li))li='https://'+li;
-  return {
+  var cleaned={
     n:cleanLiveText(m.n),
     r:cleanLiveText(m.r),
     loc:cleanLiveText(m.loc),
@@ -291,6 +291,8 @@ function sanitizeIncomingMember(m){
     bf:cleanLiveText(m.bf),
     ph:normImg(m.ph||'')
   };
+  if(!cleaned.n)return null;
+  return cleaned;
 }
 function isValidEmail(value){
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(oneLine(value||''));
@@ -305,7 +307,7 @@ function preview(s,n){
   return cut+'...';
 }
 function membersLabel(n){return n+' חברים'}
-function getCacheKey(){return 'nextgen_forum_members_cache_v4'}
+function getCacheKey(){return 'nextgen_forum_members_cache_v5'}
 function saveMembersCache(){
   try{localStorage.setItem(getCacheKey(),JSON.stringify(MEMBERS));}catch(e){}
 }
