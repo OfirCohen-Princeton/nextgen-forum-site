@@ -166,20 +166,19 @@ var TOPIC_RULES=[
 ];
 // Columns in sheet: 0=Timestamp,1=×©× ×¤×¨×˜×™,2=×©× ×ž×©×¤×—×”,3=LinkedIn,4=×ª×¤×§×™×“,5=×ž×™×§×•×,6=×‘×™×• ×§×¦×¨,7=×‘×™×• ×ž×¤×•×¨×˜,8=××™×ž×™×™×œ,9=×˜×œ×¤×•×Ÿ, 10+=×ª×ž×•× ×”(if exists)
 var MEMBERS=[
-  {n:'××•×¤×™×¨ ×›×”×Ÿ',r:'MPA candidate, Princeton University',loc:'Princeton, NJ',li:'https://www.linkedin.com/in/ofir-cohen-innovation',em:'ofir.c@princeton.edu',bs:'MPA candidate at Princeton, focusing on AI policy, innovation, and economic competitiveness. Former advisor in the U.S. House of Representatives. Previously Chief of Staff at DNAidea.',ph:''},
-  {n:'××¨×™××œ ×©×˜×™×™× ×‘×¨×’',r:'×× ×œ×™×¡×˜, ×”×‘× ×§ ×”×¢×•×œ×ž×™',loc:'Washington, DC',li:'https://www.linkedin.com/in/ariel-steinberg-090b89110/',em:'arielsteinberg2@gmail.com',bs:'×¢×©×•×¨ ×‘×™×—×™×“×” 8200, ×’×•×’×œ ×‘××™×¨×•×¤×”, ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª ×‘×§× ×“×™ ×¡×§×•×œ â€” ×•×¢×›×©×™×• ×× ×œ×™×¡×˜ ×‘×‘× ×§ ×”×¢×•×œ×ž×™. ×ž×ª×¢× ×™×™×Ÿ ×‘×”×©×§×¢×•×ª ×™×¨×•×§×•×ª ×‘×“×’×© ×¢×œ ×ž×™×—×–×•×¨.',ph:''},
-  {n:'×ž×©×” ×—× ×•×›×”',r:'Government Relations, ×”×ª×¢×©×™×™×” ×”××•×•×™×¨×™×ª',loc:'Washington, DC',li:'',em:'Mosheh4@gmail.com',bs:'×¢×•×¨×š ×“×™×Ÿ ×•××™×© ×¦×™×‘×•×¨. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×©×¨ ×”×›×œ×›×œ×” ×•×—×‘×¨ ×ž×•×¢×¦×ª ×¢×™×¨ ×”×•×“ ×”×©×¨×•×Ÿ. ×›×™×•× ×§×©×¨×™ ×ž×ž×©×œ ×œ×ª×¢×©×™×™×” ×”××•×•×™×¨×™×ª ×‘×•×•×©×™× ×’×˜×•×Ÿ.',ph:''},
-  {n:'××‘×™×” ×œ×™×‘×¨×ž×Ÿ',r:'MPP candidate, Yale (Fulbright)',loc:'New Haven, CT',li:'https://www.linkedin.com/in/avia-liberman/',em:'avia.liberman@yale.edu',bs:'×¨×ž"×“ ×ž×—×§×¨ ×‘×ž×•×“×™×¢×™×Ÿ â†’ ×›×œ×›×œ× ×™×ª ×¨××©×™×ª ××•×¦×¨ â†’ OECD â†’ ×ž×›×•×Ÿ ×ª×›×œ×™×ª â†’ MPP Yale ×“×¨×š ×¤×•×œ×‘×¨×™×™×˜. ×ž×ª×ž×§×“ ×‘-Economic Peacebuilding.',ph:''},
-  {n:'× ×“×‘ ×©×•××˜',r:'×¡×’×Ÿ ×”×¦×™×¨ ×”×›×œ×›×œ×™ ×©×œ ×™×©×¨××œ ×‘×•×•×©×™× ×’×˜×•×Ÿ',loc:'Washington, DC',li:'https://www.linkedin.com/in/nadavshoat',em:'nadav.shoat@gmail.com',bs:'Director of Economic Strategy â€” ×§×™×“×•× ×ž×“×™× ×™×•×ª ×ž×•×œ ×”×‘×™×ª ×”×œ×‘×Ÿ, ×ž×©×¨×“ ×”××•×¦×¨ ×”××ž×¨×™×§××™ ×•×ž×—×œ×§×ª ×”×ž×“×™× ×”. MPM candidate, Georgetown.',ph:''},
-  {n:'××•×¨×™ ×× ×’×³×œ',r:'MSc Energy Systems, Oxford University',loc:'Oxford, England',li:'https://www.linkedin.com/in/uri-angel',em:'uriangelovadya@gmail.com',bs:'×‘×•×’×¨ PPE ×ž×”××•× ×™×‘×¨×¡×™×˜×” ×”×¢×‘×¨×™×ª, ×œ×©×¢×‘×¨ ×¡×ž× ×›"×œ ××¨×’×•×Ÿ ×—×™×™× ×•×¡×‘×™×‘×”. ×ž×ª×ž×§×“ ×‘×›×œ×›×œ×ª ×× ×¨×’×™×”, ×ž×¢×‘×¨ ×œ×× ×¨×’×™×•×ª ×ž×ª×—×“×©×•×ª ×•×ž×™× ×¨×œ×™× ×§×¨×™×˜×™×™×.',ph:''},
-  {n:'Aaron Simpson-Grossman',r:'Legal Officer, IDF â€” Incoming Wharton MBA',loc:'Tel Aviv â†’ Philadelphia',li:'https://www.linkedin.com/in/aaron-s-g/',em:'aaronsimpsongrossman@gmail.com',bs:'5 years as IDF officer and lawyer (MAG Corps), shaping Israeli legal strategy before the ICJ. LLB+BA magna cum laude (Hebrew U), MSc Finance summa cum laude (TAU). Incoming Wharton MBA.',ph:''},
-  {n:'×¨×•×ª× ××•×¨×’-×§×œ×™×¡×§×™',r:'×ž×™×™×¡×“ ×•×ž× ×”×œ, ×¢×ž×•×ª×ª LIBRAEL',loc:'×ª×œ ××‘×™×‘',li:'https://www.linkedin.com/in/rotem-a-oreg/',em:'rotem.a.oreg@gmail.com',bs:'×—×•×§×¨, ×™×•×¢×¥ ×•×ž×¨×¦×” ×¢×œ ×¤×•×œ×™×˜×™×§×” ×•×ž×“×™× ×™×•×ª ×—×•×¥ ××ž×¨×™×§××™×ª. ×ž× ×”×œ ××ª "×•×•×©×™× ×’×˜×•×Ÿ ××§×¡×¤×¨×¡". ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×œ×©×’×¨×™×¨ ××¨×”"×‘ ×‘×™×©×¨××œ.',ph:''},
-  {n:'×“×•×“ ×¡×œ×•×ž×•×Ÿ',r:'×™×•×¢×¥ ×œ×©×’×¨×™×¨ ×™×©×¨××œ ×‘××•"×',loc:'New York',li:'https://www.linkedin.com/in/davidsalomon-ny',em:'Dudy.sal10@gmail.com',bs:'×™×•×¢×¥ ×¤×•×œ×™×˜×™ ×‘×›× ×¡×ª, ×¡×•×¤×¨ ×¤×¨×•×–×”, ×œ×•×—× ×‘×™×—×™×“×” ×ž×™×•×—×“×ª â€” ×›×™×•× ×™×•×¢×¥ ×œ×©×’×¨×™×¨ ×™×©×¨××œ ×‘××•"× ×‘× ×™×• ×™×•×¨×§.',ph:''},
-  {n:'×‘× ×™×” ×©×¨×œ×•',r:'×™×•×¢×¥ ×§×¨× ×•×ª ×”×•×Ÿ ×¡×™×›×•×Ÿ â€” Defense Tech',loc:'Silicon Valley',li:'https://www.linkedin.com/in/benaya-cherlow/',em:'cherlow7@gmail.com',bs:'×§×¦×™×Ÿ ×©×¨×™×•×Ÿ ×•×§×©×¨×™ ×—×•×¥, ×ª×•××¨ ×©× ×™ Syracuse, ×™×•×¢×¥ ×§×©×¨×™ ×—×•×¥ ×‘×§×•× ×’×¨×¡, ×ª×¤×§×™×“ ×‘×‘×™×ª ×”×œ×‘×Ÿ. ×›×™×•× ×ž×—×‘×¨ ×‘×™×Ÿ ×ª×œ ××‘×™×‘, ×•×•×©×™× ×’×˜×•×Ÿ ×•×¡×™×œ×™×§×•×Ÿ ×•××œ×™ ×‘×ª×—×•× ×‘×™×˜×—×•×Ÿ ×œ××•×ž×™.',ph:''},
-  {n:'×©×ž×¢×•×Ÿ ×¨×¤××œ×™',r:'×¢×ž×™×ª ×‘×›×™×¨, ×ž×›×•×Ÿ ×“×•×“ ×œ×ž×“×™× ×™×•×ª ×‘×™×˜×—×•×Ÿ',loc:'×™×©×¨××œ',li:'https://www.linkedin.com/in/shimon-refaeli-0587b419a',em:'shimonrefaeli5@gmail.com',bs:'×œ×©×¢×‘×¨ ×™×•×¢×¥ ×ž×“×™× ×™ ×œ×©×¨ ×¨×•×Ÿ ×“×¨×ž×¨, ×¢×‘×•×“×” ×‘×ž×•×¢×¦×” ×œ×‘×™×˜×—×•×Ÿ ×œ××•×ž×™ ×•×—×“×¨ ×ž×¦×‘. ×ž×™×™×¡×“ ×¤×•×“×§××¡×˜ "×ž×¡×¢ ×‘×™×Ÿ ×¨×¢×™×•× ×•×ª". ×›×ª×‘ ×‘-Wall Street Journal.',ph:''},
-  {n:'×¢×•×–×™ ×§×œ×›×”×™×™×',r:'Client Solutions Manager, Meta Israel',loc:'×™×©×¨××œ',li:'https://www.linkedin.com/in/uzi-kalchaim-strategy/',em:'uzikal36@gmail.com',bs:'×¢×•"×“ ×•×›×œ×›×œ×Ÿ. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×œ×©×¨×™ ×”××•×¦×¨ ×•×”×‘×™×˜×—×•×Ÿ, ×¢×•"×“ ×§×¨× ×•×ª ×”×©×§×¢×” ×‘×”×¨×¦×•×’ ×¤×•×§×¡ × ××ž×Ÿ. ×›×™×•× CSM ×‘×¦×•×•×ª Media & Aggregators ×‘×ž×˜×.',ph:''}
+  {n:'אופיר כהן',r:'מועמד ל-MPA, Princeton University',loc:'Princeton, NJ',li:'https://www.linkedin.com/in/ofir-cohen-innovation',em:'ofir.c@princeton.edu',bs:'יועץ למדיניות ציבורית, חדשנות וטכנולוגיה. לשעבר יועץ בבית הנבחרים האמריקאי בתחומי חוץ וכלכלה, ובהמשך ראש מטה בחברת אסטרטגיה.',ph:''},
+  {n:'אריאל שטיינברג',r:'הבנק העולמי',loc:'Washington, DC',li:'https://www.linkedin.com/in/ariel-steinberg-090b89110/',em:'arielsteinberg2@gmail.com',bs:'8200 למשך עשור, גוגל באירופה, מדיניות ציבורית בקנדי סקול. מתמקד בהשקעות ירוקות ובמיחזור.',ph:''},
+  {n:'משה חנוכה',r:'קשרי ממשל לתעשייה האווירית',loc:'Washington, DC',li:'',em:'Mosheh4@gmail.com',bs:'לשעבר יועץ שר הכלכלה והתעשייה, חבר מועצת העיר הוד השרון ורמ״ט יו״ר התעשייה האווירית. פועל כיום בתחום קשרי ממשל בוושינגטון.',ph:''},
+  {n:'אביה ליברמן',r:'MPP באוניברסיטת ייל (פולברייט)',loc:'New Haven, CT',li:'https://www.linkedin.com/in/avia-liberman/',em:'avia.liberman@yale.edu',bs:'יועצת כלכלה וביטחון עם רקע במחקר מודיעין, באגף הכלכלי ב-OECD ובמכון תכלית למדיניות.',ph:''},
+  {n:'נדב שואט',r:'סגן הציר הכלכלי של ישראל בוושינגטון',loc:'Washington, DC',li:'https://www.linkedin.com/in/nadavshoat',em:'nadav.shoat@gmail.com',bs:'Director of Economic Strategy. מקדם מדיניות מול הבית הלבן, משרד האוצר האמריקאי ומחלקת המדינה, ומועמד ל-MPM בג׳ורג׳טאון.',ph:''},
+  {n:'אורי אנג׳ל',r:'לשעבר סמנכ״ל בארגון הגג הסביבתי Life and Environment',loc:'Oxford, England',li:'https://www.linkedin.com/in/uri-angel',em:'uriangelovadya@gmail.com',bs:'סטודנט לתואר שני ב-Energy Systems באוקספורד, עם רקע ביזמות סביבתית, כלכלת אנרגיה ומדיניות אקלים.',ph:''},
+  {n:'אהרן סימפסון-גרוסמן',r:'קצין משפטי ב-IDF ומועמד ל-Wharton MBA',loc:'Tel Aviv -> Philadelphia',li:'https://www.linkedin.com/in/aaron-s-g/',em:'aaronsimpsongrossman@gmail.com',bs:'משפטן וקצין בעל ניסיון בזירה הביטחונית והבינלאומית, עם רקע בפרקליטות הצבאית ובאסטרטגיה המשפטית של ישראל.',ph:''},
+  {n:'רותם אורג-קליסקי',r:'המייסד והמנהל של LIBRAEL',loc:'תל אביב',li:'https://www.linkedin.com/in/rotem-a-oreg/',em:'rotem.a.oreg@gmail.com',bs:'חוקר, יועץ ומרצה על הפוליטיקה ומדיניות החוץ של ארה״ב, ומייסד יוזמה המחברת בין ישראל לאמריקה הליברלית.',ph:''},
+  {n:'דוד סלומון',r:'יועץ לשגריר ישראל באו״ם',loc:'New York',li:'https://www.linkedin.com/in/davidsalomon-ny',em:'Dudy.sal10@gmail.com',bs:'לשעבר יועץ פוליטי בכנסת, סופר פרוזה ולוחם ביחידה מיוחדת. פועל כיום בזירת האו״ם בניו יורק.',ph:''},
+  {n:'בניה שרלו',r:'מייעץ לקרנות הון סיכון בדיפנס וטק',loc:'Silicon Valley',li:'https://www.linkedin.com/in/benaya-cherlow/',em:'cherlow7@gmail.com',bs:'מחבר בין תל אביב, וושינגטון וסיליקון ואלי בתחום הביטחון הלאומי, עם רקע בקונגרס, בבית הלבן ובקשרי חוץ.',ph:''},
+  {n:'שמעון רפאלי',r:'עמית בכיר במכון דוד למדיניות ביטחון',loc:'ישראל',li:'https://www.linkedin.com/in/shimon-refaeli-0587b419a',em:'shimonrefaeli5@gmail.com',bs:'יועץ מדיני לשעבר לשר לעניינים אסטרטגיים, בעל ניסיון במועצה לביטחון לאומי, בכתיבה מדינית ובהובלת שיח ציבורי.',ph:''},
+  {n:'עוזי קלכהיים',r:'Client Solutions Manager, Meta Israel',loc:'ישראל',li:'https://www.linkedin.com/in/uzi-kalchaim-strategy/',em:'uzikal36@gmail.com',bs:'עו״ד וכלכלן, לשעבר יועץ לשרי האוצר והביטחון הלאומי, וכיום מנהל לקוחות אסטרטגיים ב-Meta.',ph:''}
 ];
-
 var PROFILE_OVERRIDES={
   'Aaron Simpson-Grossman':{
     n:'אהרן סימפסון-גרוסמן',
@@ -679,7 +678,7 @@ function loadFromGviz(){
     var cols=resp.table.cols;
     var rows=resp.table.rows;
     function fi(){for(var k=0;k<arguments.length;k++)for(var i=0;i<cols.length;i++)if((cols[i].label||'').toLowerCase().includes(arguments[k]))return i;return-1}
-    var C={fn:fi('×¤×¨×˜×™','first'),ln:fi('×ž×©×¤×—×”','last'),li:fi('linkedin','×œ×™× ×§×“'),ro:fi('×¢×•×©×™×','role','title'),lo:fi('××™×¤×”','location','city'),hd:fi('כותרת ראשית','headline','main title'),sd:fi('כותרת משנית','subtitle','sub title'),hl:fi('3 בולטים','בולטים','highlights','bullets'),bs:fi('×‘×•×œ×˜×™×','×§×¦×¨','short'),em:fi('××™×ž×™×™×œ','mail'),ph:fi('×ª×ž×•× ×”','photo','image','picture','img','avatar','url')};
+    var C={fn:fi('פרטי','first'),ln:fi('משפחה','last'),li:fi('linkedin','לינקד'),ro:fi('תפקיד','עושים','role','title'),lo:fi('מיקום','איפה','location','city'),hd:fi('כותרת ראשית','headline','main title'),sd:fi('כותרת משנית','subtitle','sub title'),hl:fi('3 בולטים לפירוט','3 בולטים','בולטים','highlights','bullets'),bs:fi('בולטים','קצר','short'),em:fi('אימייל','מייל','mail','email'),ph:fi('תמונה','photo','image','picture','img','avatar','url')};
     if(C.fn<0)C.fn=1;
     if(C.ln<0)C.ln=2;
     if(C.li<0)C.li=3;
@@ -764,5 +763,6 @@ loadSheet();
 </script>
 </body>
 </html>
+
 
 
