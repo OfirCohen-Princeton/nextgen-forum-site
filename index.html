@@ -647,7 +647,12 @@ function normImg(v){
   if(!v)return '';
   var m=v.match(/=image\(\s*"([^"]+)"/i)||v.match(/=image\(\s*'([^']+)'/i);
   if(m&&m[1])v=m[1].trim();
-  if(/^https?:\/\//i.test(v))return v;
+  if(/^https?:\/\//i.test(v)){
+    if(/:\/\/media\.licdn\.com\//i.test(v)){
+      return 'https://images.weserv.nl/?url='+encodeURIComponent(v.replace(/^https?:\/\//i,''))+'&w=400&h=400&fit=cover&output=jpg';
+    }
+    return v;
+  }
   var d=v.match(/https?:\/\/drive\.google\.com\/file\/d\/([^\/?#]+)/i)
     ||v.match(/https?:\/\/drive\.google\.com\/open\?id=([^&#]+)/i)
     ||v.match(/https?:\/\/drive\.google\.com\/uc\?(?:[^#]*&)?id=([^&#]+)/i)
