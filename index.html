@@ -169,7 +169,7 @@ var TOPIC_RULES=[
 var MEMBERS=[
   {n:'אופיר כהן',r:'מועמד ל-MPA, Princeton University',loc:'Princeton, NJ',li:'https://www.linkedin.com/in/ofir-cohen-innovation',em:'ofir.c@princeton.edu',bs:'יועץ למדיניות ציבורית, חדשנות וטכנולוגיה. לשעבר יועץ בבית הנבחרים האמריקאי וראש מטה ב-DNAidea.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQGBNlwhEG6MwQ/profile-displayphoto-shrink_800_800/B4DZW1jyJSHAAo-/0/1742507811720?e=1776902400&v=beta&t=QbTyfk37kKQyXBlqTEGOPLRnJrleHsjZSinDqL-3eiQ'},
   {n:'אריאל שטיינברג',r:'הבנק העולמי',loc:'Washington, DC',li:'https://www.linkedin.com/in/ariel-steinberg-090b89110/',em:'arielsteinberg2@gmail.com',bs:'8200 למשך עשור, גוגל באירופה, מדיניות ציבורית בקנדי סקול. עוסק בהשקעות ירוקות בדגש על מיחזור.',ph:'https://media.licdn.com/dms/image/v2/D4E03AQGzBpHPYGDljQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1682957867726?e=1776902400&v=beta&t=0ldYSG5g7Lg8Q9ZjEVWXTerJyPcNEJoi1-nZv-PGJHA'},
-  {n:'משה חנוכה',r:'קשרי ממשל לתעשייה האווירית',loc:'Washington, DC',li:'',em:'Mosheh4@gmail.com',bs:'עורך דין ואיש ציבור. לשעבר יועץ שר הכלכלה, חבר מועצת העיר הוד השרון ורמ״ט יו״ר התעשייה האווירית. כיום פועל בתחום קשרי ממשל בוושינגטון.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQF8uivZRattLQ/profile-displayphoto-crop_800_800/B4DZo8pkCBJAAI-/0/1761954121440?e=1776902400&v=beta&t=fbQWif6rX8uAXa8uQGjHN1EF2Dakg35cX9rVNiUF6aw'},
+  {n:'משה חנוכה',r:'קשרי ממשל לתעשייה האווירית',loc:'Washington, DC',li:'https://www.linkedin.com/search/results/all/?keywords=%D7%9E%D7%A9%D7%94%20%D7%97%D7%A0%D7%95%D7%9B%D7%94',em:'Mosheh4@gmail.com',bs:'עורך דין ואיש ציבור. לשעבר יועץ שר הכלכלה, חבר מועצת העיר הוד השרון ורמ״ט יו״ר התעשייה האווירית. כיום פועל בתחום קשרי ממשל בוושינגטון.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQF8uivZRattLQ/profile-displayphoto-crop_800_800/B4DZo8pkCBJAAI-/0/1761954121440?e=1776902400&v=beta&t=fbQWif6rX8uAXa8uQGjHN1EF2Dakg35cX9rVNiUF6aw'},
   {n:'אביה ליברמן',r:'MPP באוניברסיטת ייל (פולברייט)',loc:'New Haven, CT',li:'https://www.linkedin.com/in/avia-liberman/',em:'avia.liberman@yale.edu',bs:'יועצת כלכלה וביטחון. רמ״ד מחקר במודיעין, צוות ביטחון לאומי בכלכלנית הראשית במשרד האוצר, צוות ישראל באגף הכלכלי ב-OECD וחוקרת במכון תכלית.',ph:'https://media.licdn.com/dms/image/v2/D4E03AQG0pCi-WNT-AA/profile-displayphoto-crop_800_800/B4EZmcadL.IMAI-/0/1759265806393?e=1776902400&v=beta&t=E47sTuTMZmjgWI53vacSjsjCF3XOE0jX_VyTztk__is'},
   {n:'נדב שואט',r:'סגן הציר הכלכלי של ישראל בוושינגטון',loc:'Washington, DC',li:'https://www.linkedin.com/in/nadavshoat',em:'nadav.shoat@gmail.com',bs:'Director of Economic Strategy. מקדם מדיניות מול הבית הלבן, משרד האוצר האמריקאי ומחלקת המדינה, ומועמד ל-MPM בג׳ורג׳טאון.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQFjz200hxIZkQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1680563910767?e=1776902400&v=beta&t=9AAuGqNuFxJdK3HEs54eEOszokeKCZ45MBc-2pkNNFA'},
   {n:'אורי אנג׳ל',r:'לשעבר סמנכ״ל בארגון הגג הסביבתי Life and Environment',loc:'Oxford, England',li:'https://www.linkedin.com/in/uri-angel',em:'uriangelovadya@gmail.com',bs:'סטודנט לתואר שני ב-Energy Systems באוקספורד, עם רקע ביזמות סביבתית, כלכלת אנרגיה, מדיניות אקלים ומינרלים קריטיים.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQHFc76gminvPA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1703652748039?e=1776902400&v=beta&t=a630DOXV8CGnWl3S3phIjr3UO3N6XoH5XSTnwXBnFv4'},
@@ -275,8 +275,7 @@ function cleanLiveHighlights(value){
 }
 function sanitizeIncomingMember(m){
   if(!m)return null;
-  var li=oneLine(m.li||'');
-  if(li&&!/^https?:\/\//i.test(li))li='https://'+li;
+  var li=normalizeLinkedInUrl(m.li,m.n);
   var cleaned={
     n:cleanLiveText(m.n),
     r:cleanLiveText(m.r),
@@ -295,6 +294,24 @@ function sanitizeIncomingMember(m){
 }
 function isValidEmail(value){
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(oneLine(value||''));
+}
+function normalizeLinkedInUrl(li,name){
+  var raw=oneLine(li||'');
+  var person=oneLine(name||'');
+  if(!raw)return '';
+  if(/linkedin\.com/i.test(raw)){
+    return /^https?:\/\//i.test(raw) ? raw : 'https://'+raw.replace(/^\/+/,'');
+  }
+  if(/^https?:\/\//i.test(raw)){
+    if(/\s/.test(raw) || !/\.[a-z]{2,}/i.test(raw)){
+      return person ? 'https://www.linkedin.com/search/results/all/?keywords='+encodeURIComponent(person) : '';
+    }
+    return raw;
+  }
+  if(/\s/.test(raw) || raw.indexOf('.')<0){
+    return person ? 'https://www.linkedin.com/search/results/all/?keywords='+encodeURIComponent(person) : '';
+  }
+  return 'https://'+raw;
 }
 function preview(s,n){
   s=oneLine(s);
@@ -489,7 +506,7 @@ function mergeMemberData(target,src){
   if((!target.bs||isCorruptedText(target.bs))&&src.bs&&!isCorruptedText(src.bs))target.bs=src.bs;
   if((!target.r||isCorruptedText(target.r))&&src.r&&!isCorruptedText(src.r))target.r=src.r;
   if((!target.loc||isCorruptedText(target.loc))&&src.loc&&!isCorruptedText(src.loc))target.loc=src.loc;
-  if(!target.li&&src.li)target.li=src.li;
+  if((!target.li||!normalizeLinkedInUrl(target.li,target.n))&&src.li)target.li=normalizeLinkedInUrl(src.li,src.n||target.n);
   if((!target.em||!isValidEmail(target.em))&&isValidEmail(src.em))target.em=src.em;
 }
 function dedupeMembers(){
@@ -748,7 +765,7 @@ function loadFromGviz(){
     var fresh=rows.map(function(r){
       var fn=cv(r,C.fn),ln=cv(r,C.ln);
       if(!fn&&!ln)return null;
-      var li=cv(r,C.li);if(li&&!li.startsWith('http'))li='https://'+li;
+      var li=normalizeLinkedInUrl(cv(r,C.li),(fn+' '+ln).trim());
       var ph=normImg(cv(r,C.ph));
       var bs=cv(r,C.bs),bf=cv(r,C.bf);
       return sanitizeIncomingMember({n:(fn+' '+ln).trim(),r:cv(r,C.ro),loc:cv(r,C.lo),hd:cv(r,C.hd),sd:cv(r,C.sd),hl:cv(r,C.hl),li:li,em:cv(r,C.em),bs:bs,bf:bf,ph:ph});
