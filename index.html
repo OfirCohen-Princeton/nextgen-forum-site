@@ -427,7 +427,6 @@ function professionalSubtitle(m){
 function displayLocation(m){
   var loc=oneLine(m.loc||'');
   if(!loc)return '';
-  if(m.hd||m.sd||(Array.isArray(m.hl)?m.hl.length:String(m.hl||'').trim()))return '';
   var headline=professionalHeadline(m),subtitle=professionalSubtitle(m);
   if(loc===headline||loc===subtitle)return '';
   return loc;
@@ -457,7 +456,7 @@ function getExpandedDetail(m){
   var headlineText=normalizeSearchText(professionalHeadline(m));
   var subtitleText=normalizeSearchText(professionalSubtitle(m));
   var pointsNorm=normalizeSearchText(pointsText);
-  var candidates=[oneLine(m.bf||''),oneLine(m.bs||'')].filter(Boolean);
+  var candidates=[oneLine(m.bf||''),oneLine(m.bs||''),oneLine(m.r||'')].filter(Boolean);
   var detailed=candidates.find(function(text){
     var norm=normalizeSearchText(text);
     return norm&&norm!==pointsNorm&&norm!==headlineText&&norm!==subtitleText&&text.length>=45;
