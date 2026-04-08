@@ -372,7 +372,9 @@ function getMemberTopics(m){
   TOPIC_RULES.forEach(function(t){
     if(t.terms.some(function(term){return corpus.indexOf(normalizeSearchText(term))>=0;}))hits.push(t.label);
   });
-  return hits;
+  var region=locationRegion(m);
+  if(region)hits.push(region);
+  return Array.from(new Set(hits));
 }
 function getSearchTokens(q){
   q=normalizeSearchText(q);
@@ -456,11 +458,12 @@ function professionalSubtitle(m){
   return '';
 }
 function displayLocation(m){
-  var loc=oneLine(m.loc||'');
-  if(!loc)return '';
-  var headline=professionalHeadline(m),subtitle=professionalSubtitle(m);
-  if(loc===headline||loc===subtitle)return '';
-  return loc;
+  return oneLine(m.loc||'''');
+}
+function locationRegion(m){
+  var loc=oneLine(m.loc||'''');
+  if(!loc)return '''';
+  return loc.replace(/\s*\([^)]*\)\s*$/,'''''').trim();
 }
 function renderHighlights(m,limit){
   var points=getHighlights(m);
@@ -574,36 +577,36 @@ function card(m){
   var subtitle=professionalSubtitle(m);
   var loc=displayLocation(m);
   var topics=getMemberTopics(m);
-  var corpus=getMemberCorpus(m)+' '+topics.map(normalizeSearchText).join(' ');
+  var corpus=getMemberCorpus(m)+'' ''+topics.map(normalizeSearchText).join('' '');
   var av=m.ph
-    ?'<img src="'+e(m.ph)+'" alt="'+e(m.n)+'" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentNode.style.background=\'transparent\'" onerror="this.remove();this.parentNode.style.background=\''+bg+'\'">'
+    ?''<img src="''+e(m.ph)+''" alt="''+e(m.n)+''" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentNode.style.background=\''transparent\''" onerror="this.remove();this.parentNode.style.background=\''''+bg+''\'">''
     :ini(m.n);
-  var email=isValidEmail(m.em||'')?(m.em||'').trim():'';
-  var safe=email.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-  var li=m.li?'<a class="btn-li" href="'+e(m.li)+'" target="_blank" rel="noopener">'+LI+'LinkedIn</a>':'';
-  var em=email?'<button class="btn-em" onclick="rev(this,\''+safe+'\')">'+MI+'<span>הצג מייל</span></button>':'';
-  return '<div class="card" data-s="'+e(corpus)+'" data-topics="'+e(topics.join('|'))+'">'
-    +'<div class="card-top">'
-      +'<div class="avatar" style="background:'+(m.ph?'#d0cdc5':bg)+'">'+av+'</div>'
-      +'<div class="card-identity">'
-        +'<div class="card-name">'+e(m.n)+'</div>'
-        +'<div class="card-role">'+e(professionalHeadline(m))+'</div>'
-        +(subtitle?'<div class="card-subtitle">'+e(subtitle)+'</div>':'')
-        +(loc?'<div class="card-loc">'+LO+'<span>'+e(loc)+'</span></div>':'')
-      +'</div>'
-    +'</div>'
-    +'<div class="card-bio">'
-      +'<div class="bio-short">'+renderHighlights(m,previewCount)+'</div>'
-      +(expanded.hasMore?'<div class="bio-full">'+expanded.html+'</div>':'')
-      +(expanded.hasMore?'<button class="bio-toggle" onclick="tgl(this)">קרא עוד '+DN+'</button>':'')
-    +'</div>'
-    +(li||em?'<div class="card-footer">'+li+em+'</div>':'')
-  +'</div>'
+  var email=isValidEmail(m.em||'''')?(m.em||'''').trim():'''';
+  var safe=email.replace(/\\/g,''\\\\'').replace(/''/g,"\\'");
+  var li=m.li?''<a class="btn-li" href="''+e(m.li)+''" target="_blank" rel="noopener">''+LI+''LinkedIn</a>'':''';
+  var em=email?''<button class="btn-em" onclick="rev(this,\''''+safe+''\'')">''+MI+''<span>הצג מייל</span></button>'':''';
+  return ''<div class="card" data-s="''+e(corpus)+''" data-topics="''+e(topics.join(''|''))+''">''
+    +''<div class="card-top">''
+      +''<div class="avatar" style="background:''+(m.ph?''#d0cdc5'':bg)+''">''+av+''</div>''
+      +''<div class="card-identity">''
+        +''<div class="card-name">''+e(m.n)+''</div>''
+        +''<div class="card-role">''+e(professionalHeadline(m))+''</div>''
+        +(subtitle?''<div class="card-subtitle">''+e(subtitle)+''</div>'':'''' )
+        +(loc?''<div class="card-loc">''+LO+''<span>''+e(loc)+''</span></div>'':'''' )
+      +''</div>''
+    +''</div>''
+    +''<div class="card-bio">''
+      +''<div class="bio-short">''+renderHighlights(m,previewCount)+''</div>''
+      +(expanded.hasMore?''<div class="bio-full">''+expanded.html+''</div>'':'''' )
+      +(expanded.hasMore?''<button class="bio-toggle" onclick="tgl(this)">קרא עוד ''+DN+''</button>'':'''' )
+    +''</div>''
+    +(li||em?''<div class="card-footer">''+li+em+''</div>'':'''' )
+  +''</div>''
 }
 
 function rev(btn,em){
-  if(btn.classList.contains('on')){if(navigator.clipboard)navigator.clipboard.writeText(em);return}
-  btn.classList.add('on');btn.querySelector('span').textContent=em;btn.title='לחיצה תעתיק את הכתובת'
+  if(btn.classList.contains(''on'')){if(navigator.clipboard)navigator.clipboard.writeText(em);return}
+  btn.classList.add(''on'');btn.querySelector(''span'').textContent=em;btn.title=''לחיצה תעתיק את הכתובת''
 }
 function tgl(btn){
   var cardEl=btn.closest('.card'),bio=btn.closest('.card-bio'),s=bio.querySelector('.bio-short'),f=bio.querySelector('.bio-full');
@@ -635,15 +638,27 @@ function flt(){
   if(cnt)cnt.textContent=membersLabel(vis)
 }
 
+function getRegionFilters(){
+  return Array.from(new Set(MEMBERS.map(locationRegion).filter(Boolean))).sort(function(a,b){
+    return a.localeCompare(b,''en'',{sensitivity:''base''});
+  });
+}
+
 function renderTopicBar(){
-  var bar=document.getElementById('topicBar');
+  var bar=document.getElementById(''topicBar'');
   if(!bar)return;
-  if(!MEMBERS.length){bar.innerHTML='';return;}
-  bar.innerHTML='<button class="topic-chip'+(!ACTIVE_TOPIC?' active':'')+'" type="button" onclick="setTopic(\'\')">הכול <span>(' + MEMBERS.length + ')</span></button>'
-    +TOPIC_RULES.map(function(t){
-      var count=MEMBERS.filter(function(m){return getMemberTopics(m).includes(t.label)}).length;
-      return '<button class="topic-chip'+(ACTIVE_TOPIC===t.label?' active':'')+'" type="button" onclick="setTopic(\''+e(t.label).replace(/'/g,"&#39;")+'\')">'+e(t.label)+' <span>(' + count + ')</span></button>';
-    }).join('');
+  if(!MEMBERS.length){bar.innerHTML='''';return;}
+  var regions=getRegionFilters();
+  var chips=TOPIC_RULES.map(function(t){
+    var count=MEMBERS.filter(function(m){return getMemberTopics(m).includes(t.label)}).length;
+    return ''<button class="topic-chip''+(ACTIVE_TOPIC===t.label?'' active'':'''''')+''" type="button" onclick="setTopic(''''''+e(t.label).replace(/''/g,"&#39;")+'''''')">''+e(t.label)+'' <span>('' + count + '')</span></button>'';
+  });
+  var regionChips=regions.map(function(label){
+    var count=MEMBERS.filter(function(m){return getMemberTopics(m).includes(label)}).length;
+    return ''<button class="topic-chip''+(ACTIVE_TOPIC===label?'' active'':'''''')+''" type="button" onclick="setTopic(''''''+e(label).replace(/''/g,"&#39;")+'''''')">''+e(label)+'' <span>('' + count + '')</span></button>'';
+  });
+  bar.innerHTML=''<button class="topic-chip''+(!ACTIVE_TOPIC?'' active'':'''''')+''" type="button" onclick="setTopic('''''')">הכול <span>('' + MEMBERS.length + '')</span></button>''
+    +chips.join('''')+regionChips.join('''');
 }
 function setTopic(topic){
   ACTIVE_TOPIC=topic||'';
@@ -778,7 +793,7 @@ function loadFromGviz(){
     var cols=resp.table.cols;
     var rows=resp.table.rows;
     function fi(){for(var k=0;k<arguments.length;k++)for(var i=0;i<cols.length;i++)if((cols[i].label||'').toLowerCase().includes(arguments[k]))return i;return-1}
-    var C={fn:fi('פרטי','first'),ln:fi('משפחה','last'),li:fi('linkedin','לינקד'),ro:fi('תפקיד','עושים','role','title'),lo:fi('מיקום','איפה','location','city','???? ??? ?????'),lo2:fi('????? ??????','location specific','specific location'),hd:fi('כותרת ראשית','headline','main title'),sd:fi('כותרת משנית','subtitle','sub title'),hl:fi('3 בולטים לפירוט','3 בולטים','בולטים','highlights','bullets'),bs:fi('קצר','short'),em:fi('אימייל','מייל','mail','email'),ph:fi('תמונה','photo','image','picture','img','avatar','url')};
+    var C={fn:fi('פרטי','first'),ln:fi('משפחה','last'),li:fi('linkedin','לינקד'),ro:fi('תפקיד','עושים','role','title'),lo:fi('איפה אתם בעולם','מיקום','location','city'),lo2:fi('מיקום ספציפי','אם ציינתם אחר','היכן אתם היום','location specific','specific location'),hd:fi('כותרת ראשית','headline','main title'),sd:fi('כותרת משנית','subtitle','sub title'),hl:fi('3 בולטים לפירוט','3 בולטים','בולטים','highlights','bullets'),bs:fi('קצר','short'),em:fi('אימייל','מייל','mail','email'),ph:fi('תמונה','photo','image','picture','img','avatar','url')};
     if(C.fn<0)C.fn=1;
     if(C.ln<0)C.ln=2;
     if(C.li<0)C.li=3;
