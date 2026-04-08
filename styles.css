@@ -1,3 +1,4 @@
+﻿
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#F6F1E7;--surface:#FFFEFB;--surface2:#F3EEE3;--surface3:#E7DECF;
@@ -76,3 +77,4 @@ main{max-width:1180px;margin:0 auto;padding:20px 24px 64px}
 .no-res{grid-column:1/-1;text-align:center;padding:60px;color:var(--text3);font-size:14px}
 @media(max-width:800px){.steering-grid{grid-template-columns:1fr}.intro-title,.section-title{font-size:24px}}
 @media(max-width:600px){.topbar-sub,.topbar-sep{display:none}.grid{grid-template-columns:1fr}.hero,.topic-bar,.intro,.section-block,.loading-note{padding-left:16px;padding-right:16px}.controls,main{padding-left:16px;padding-right:16px}.hero-shell{min-height:220px}}
+
