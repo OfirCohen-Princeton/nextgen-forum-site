@@ -1,6 +1,7 @@
 var SHEET_ID='1CC_J-IhuktNHsul-C01gHUs38r9LvWheMDU9lcVjkOg';
 var CL=['#1A3A6B','#2D6A4F','#7B2D8B','#B03A2E','#D35400','#1A5276','#196F3D','#6E2FBF','#0E6655','#7D6608','#1A6B4A','#6B1A3A'];
 var ACTIVE_TOPIC='';
+var ACTIVE_REGION='';
 var TOPIC_RULES=[
   {id:'security',label:'ביטחון',terms:['ביטחון','security','defense','defence','idf','8200','מודיעין','military','national security','defense tech','שריון','dual use']},
   {id:'policy',label:'מדיניות וקונגרס',terms:['קונגרס','congress','house of representatives','policy','public policy','מדיניות','ממשל','government','כנסת','הבית הלבן','senate']},
@@ -127,6 +128,8 @@ function sanitizeIncomingMember(m){
     n:cleanLiveText(m.n),
     r:cleanLiveText(m.r),
     loc:cleanLiveText(m.loc),
+    locBroad:cleanLiveText(m.locBroad||m.loc||''),
+    loc2:cleanLiveText(m.loc2||''),
     hd:cleanLiveText(m.hd||m.headline||''),
     sd:cleanLiveText(m.sd||m.sub||m.subtitle||''),
     hl:cleanLiveHighlights(m.hl||m.bullets||m.highlights||''),
@@ -182,7 +185,7 @@ function loadMembersCache(){
     return Array.isArray(parsed)?parsed.map(sanitizeIncomingMember).filter(Boolean):[];
   }catch(e){return []}
 }
-function getMemberCorpus(m){return normalizeSearchText([m.n,m.r,m.loc,m.bs,m.bf,m.em].join(' '))}
+function getMemberCorpus(m){return normalizeSearchText([m.n,m.r,m.loc,m.locBroad,m.loc2,m.bs,m.bf,m.em].join(' '))}
 function mergeIntoMembers(list){
   (list||[]).forEach(function(fm){
     var found=MEMBERS.find(function(m){return sameMember(m,fm)});
@@ -288,8 +291,28 @@ function professionalSubtitle(m){
   if(role&&role!==professionalHeadline(m))return truncateClean(role,95);
   return '';
 }
+function stripLocationParens(value){
+  return oneLine(value||'').replace(/\s*\([^)]*\)\s*$/,'').trim();
+}
+function getBroadRegion(m){
+  return stripLocationParens((m&&(m.locBroad||m.loc))||'');
+}
 function displayLocation(m){
-  return oneLine(m.loc||'');
+  var primary=getBroadRegion(m);
+  var specific=oneLine((m&&m.loc2)||'');
+  if(!primary)return specific;
+  if(!specific||normalizeSearchText(primary)===normalizeSearchText(specific))return primary;
+  return primary+' ('+specific+')';
+}
+function getRegionOptions(){
+  var seen={};
+  return MEMBERS.map(getBroadRegion).filter(function(region){
+    if(!region)return false;
+    var key=normalizeSearchText(region);
+    if(seen[key])return false;
+    seen[key]=true;
+    return true;
+  }).sort(function(a,b){ return a.localeCompare(b,'en'); });
 }
 function renderHighlights(m,limit){
   var points=getHighlights(m);
@@ -374,6 +397,8 @@ function mergeMemberData(target,src){
   if((!target.bs||isCorruptedText(target.bs))&&src.bs&&!isCorruptedText(src.bs))target.bs=src.bs;
   if((!target.r||isCorruptedText(target.r))&&src.r&&!isCorruptedText(src.r))target.r=src.r;
   if((!target.loc||isCorruptedText(target.loc))&&src.loc&&!isCorruptedText(src.loc))target.loc=src.loc;
+  if((!target.locBroad||isCorruptedText(target.locBroad))&&src.locBroad&&!isCorruptedText(src.locBroad))target.locBroad=src.locBroad;
+  if((!target.loc2||isCorruptedText(target.loc2))&&src.loc2&&!isCorruptedText(src.loc2))target.loc2=src.loc2;
   if((!target.li||!normalizeLinkedInUrl(target.li,target.n))&&src.li)target.li=normalizeLinkedInUrl(src.li,src.n||target.n);
   if((!target.em||!isValidEmail(target.em))&&isValidEmail(src.em))target.em=src.em;
 }
@@ -401,6 +426,7 @@ function card(m){
   var expanded=getExpandedDetail(m);
   var subtitle=professionalSubtitle(m);
   var loc=displayLocation(m);
+  var region=getBroadRegion(m);
   var topics=getMemberTopics(m);
   var corpus=getMemberCorpus(m)+' '+topics.map(normalizeSearchText).join(' ');
   var av=m.ph
@@ -410,7 +436,7 @@ function card(m){
   var safe=email.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
   var li=m.li?'<a class="btn-li" href="'+e(m.li)+'" target="_blank" rel="noopener">'+LI+'LinkedIn</a>':'';
   var em=email?'<button class="btn-em" onclick="rev(this,\''+safe+'\')">'+MI+'<span>הצג מייל</span></button>':'';
-  return '<div class="card" data-s="'+e(corpus)+'" data-topics="'+e(topics.join('|'))+'">'
+  return '<div class="card" data-s="'+e(corpus)+'" data-topics="'+e(topics.join('|'))+'" data-region="'+e(region)+'">'
     +'<div class="card-top">'
       +'<div class="avatar" style="background:'+(m.ph?'#d0cdc5':bg)+'">'+av+'</div>'
       +'<div class="card-identity">'
@@ -452,8 +478,9 @@ function flt(){
   var q=document.getElementById('q').value;
   document.querySelectorAll('.card').forEach(function(c){
     var topicOk=!ACTIVE_TOPIC||(c.dataset.topics||'').split('|').includes(ACTIVE_TOPIC);
+    var regionOk=!ACTIVE_REGION||(c.dataset.region||'')===ACTIVE_REGION;
     var queryOk=cardMatches(c,q);
-    c.style.display=(topicOk&&queryOk)?'':'none'
+    c.style.display=(topicOk&&regionOk&&queryOk)?'':'none'
   });
   var vis=document.querySelectorAll('.card:not([style*="none"])').length;
   var steeringSection=document.getElementById('steeringSection');
@@ -473,9 +500,25 @@ function renderTopicBar(){
       return '<button class="topic-chip'+(ACTIVE_TOPIC===t.label?' active':'')+'" type="button" onclick="setTopic(\''+e(t.label).replace(/'/g,"&#39;")+'\')">'+e(t.label)+' <span>(' + count + ')</span></button>';
     }).join('');
 }
+function renderRegionBar(){
+  var bar=document.getElementById('regionBar');
+  if(!bar)return;
+  var regions=getRegionOptions();
+  if(!regions.length){bar.innerHTML='';return;}
+  bar.innerHTML='<button class="topic-chip'+(!ACTIVE_REGION?' active':'')+'" type="button" onclick="setRegion(\'\')">כל האזורים <span>(' + MEMBERS.length + ')</span></button>'
+    +regions.map(function(region){
+      var count=MEMBERS.filter(function(m){return getBroadRegion(m)===region;}).length;
+      return '<button class="topic-chip'+(ACTIVE_REGION===region?' active':'')+'" type="button" onclick="setRegion(\''+e(region).replace(/'/g,"&#39;")+'\')">'+e(region)+' <span>(' + count + ')</span></button>';
+    }).join('');
+}
 function setTopic(topic){
   ACTIVE_TOPIC=topic||'';
   renderTopicBar();
+  flt();
+}
+function setRegion(region){
+  ACTIVE_REGION=region||'';
+  renderRegionBar();
   flt();
 }
 function setLoading(msg){
@@ -507,6 +550,7 @@ function renderCards(){
     steering.innerHTML='';
     steeringSection.style.display='none';
   }
+  renderRegionBar();
   setLoading(MEMBERS.length?'':'טוען את חברי הפורום...');
 }
 
@@ -641,7 +685,7 @@ function loadFromGviz(){
       var li=normalizeLinkedInUrl(cv(r,C.li),(fn+' '+ln).trim());
       var ph=normImg(cv(r,C.ph));
       var bs=cv(r,C.bs),bf=cv(r,C.bf);
-      return sanitizeIncomingMember({n:(fn+' '+ln).trim(),r:cv(r,C.ro),loc:cv(r,C.lo),loc2:cv(r,C.lo2),hd:cv(r,C.hd),sd:cv(r,C.sd),hl:cv(r,C.hl),li:li,em:cv(r,C.em),bs:bs,bf:bf,ph:ph});
+      return sanitizeIncomingMember({n:(fn+' '+ln).trim(),r:cv(r,C.ro),loc:cv(r,C.lo),locBroad:cv(r,C.lo),loc2:cv(r,C.lo2),hd:cv(r,C.hd),sd:cv(r,C.sd),hl:cv(r,C.hl),li:li,em:cv(r,C.em),bs:bs,bf:bf,ph:ph});
     }).filter(Boolean);
     if(fresh.length>0){
       mergeIntoMembers(fresh);
