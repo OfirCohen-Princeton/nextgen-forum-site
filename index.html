@@ -337,6 +337,23 @@ function loadMembersCache(){
   }catch(e){return []}
 }
 function getMemberCorpus(m){return normalizeSearchText([m.n,m.r,m.loc,m.bs,m.bf,m.em].join(' '))}
+function mergeIntoMembers(list){
+  (list||[]).forEach(function(fm){
+    var found=MEMBERS.find(function(m){return sameMember(m,fm)});
+    if(found)mergeMemberData(found,fm);
+    else MEMBERS.push(fm);
+  });
+  dedupeMembers();
+}
+function withRetries(fn,tries,delay){
+  tries=Math.max(1,tries||1);
+  delay=delay||1200;
+  return fn().catch(function(err){
+    if(tries<=1)throw err;
+    return new Promise(function(resolve){setTimeout(resolve,delay);})
+      .then(function(){return withRetries(fn,tries-1,delay);});
+  });
+}
 function getMemberTopics(m){
   var corpus=getMemberCorpus(m),hits=[];
   TOPIC_RULES.forEach(function(t){
@@ -651,8 +668,7 @@ function syncBioButtons(){
 // Initial render from hardcoded data
 var g=document.getElementById('grid');
 var cachedMembers=loadMembersCache();
-if(cachedMembers.length)MEMBERS=cachedMembers.map(applyProfileOverrides);
-dedupeMembers();
+if(cachedMembers.length)mergeIntoMembers(cachedMembers.map(applyProfileOverrides));
 renderCards();
 syncBioButtons();
 renderTopicBar();
@@ -718,7 +734,7 @@ function loadFromAppScript(){
     };
     var s=document.createElement('script');
     s.onerror=function(){delete window[cb];clearTimeout(t);reject(new Error('script error'))};
-    s.src=DATA_ENDPOINT+(DATA_ENDPOINT.indexOf('?')>=0?'&':'?')+'callback='+cb;
+    s.src=DATA_ENDPOINT+(DATA_ENDPOINT.indexOf('?')>=0?'&':'?')+'callback='+cb+'&_='+(Date.now());
     document.head.appendChild(s);
   });
 }
@@ -771,15 +787,7 @@ function loadFromGviz(){
       return sanitizeIncomingMember({n:(fn+' '+ln).trim(),r:cv(r,C.ro),loc:cv(r,C.lo),hd:cv(r,C.hd),sd:cv(r,C.sd),hl:cv(r,C.hl),li:li,em:cv(r,C.em),bs:bs,bf:bf,ph:ph});
     }).filter(Boolean);
     if(fresh.length>0){
-      // Merge photos into existing members, add new members
-      fresh.forEach(function(fm){
-        var found=MEMBERS.find(function(m){return sameMember(m,fm)});
-        if(found){
-          mergeMemberData(found,fm);
-        }
-        else MEMBERS.push(fm)
-      });
-      dedupeMembers();
+      mergeIntoMembers(fresh);
       renderCards();
       syncBioButtons();
       renderTopicBar();
@@ -792,19 +800,19 @@ function loadFromGviz(){
   };
   var s=document.createElement('script');
   s.onerror=function(){delete window[cb]};
-  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=reqId:0;out:json;callback:'+cb;
+  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=reqId:0;out:json;callback:'+cb+'&_='+(Date.now());
   document.head.appendChild(s);
   });
 }
 function loadSheet(){
   var p=Promise.resolve();
   if(DATA_ENDPOINT){
-    p=p.then(function(){return loadFromAppScript();}).catch(function(err){
+    p=p.then(function(){return withRetries(loadFromAppScript,2,1500);}).catch(function(err){
       console.warn('App Script load failed',err);
     });
   }
   return p
-    .then(function(){return loadFromGviz();})
+    .then(function(){return withRetries(loadFromGviz,3,1500);})
     .catch(function(err){
       if(MEMBERS.length){
         setLoading('');
@@ -815,6 +823,10 @@ function loadSheet(){
     });
 }
 loadSheet();
+window.addEventListener('pageshow',function(){setTimeout(loadSheet,600)});
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState==='visible')setTimeout(loadSheet,400);
+});
 </script>
 </body>
 </html>
