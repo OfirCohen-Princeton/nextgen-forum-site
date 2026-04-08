@@ -5,10 +5,16 @@
   --text1:#16130E;--text2:#5F5748;--text3:#8F8778;
   --accent:#0F2747;--accent2:#243F69;--gold:#C8A35A;--gold-soft:#E7D2A2;--linkedin:#0A66C2;--r:16px;--rs:10px
 }
+@media(prefers-color-scheme:dark){:root{
+  --bg:#141410;--surface:#1F1E19;--surface2:#28271F;--surface3:#312F25;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text1:#F0EDE0;--text2:#A09D8E;--text3:#605D50;
+  --accent:#4A7FD4;--linkedin:#5CA3E6
+}}
 body{font-family:'Heebo',sans-serif;background:
 radial-gradient(circle at top,rgba(200,163,90,.18),transparent 28%),
 linear-gradient(180deg,#FBF7EF 0%,#F4EEE2 100%);
-color:var(--text1);min-height:100vh;line-height:1.6;color-scheme:light}
+color:var(--text1);min-height:100vh;line-height:1.6}
 .topbar{background:linear-gradient(90deg,#0E2543,#1A345B);color:#fff;padding:0 32px;display:flex;align-items:center;gap:16px;height:56px;position:sticky;top:0;z-index:20;box-shadow:0 8px 22px rgba(12,24,45,.16)}
 .topbar-logo{font-family:'Frank Ruhl Libre',serif;font-size:18px;font-weight:700;white-space:nowrap;color:#fff}
 .topbar-sep{width:1px;height:22px;background:rgba(255,255,255,0.25);flex-shrink:0}

@@ -2,84 +2,78 @@ var SHEET_ID='1CC_J-IhuktNHsul-C01gHUs38r9LvWheMDU9lcVjkOg';
 var CL=['#1A3A6B','#2D6A4F','#7B2D8B','#B03A2E','#D35400','#1A5276','#196F3D','#6E2FBF','#0E6655','#7D6608','#1A6B4A','#6B1A3A'];
 var ACTIVE_TOPIC='';
 var TOPIC_RULES=[
-  {id:'security',label:'×‘×™×˜×—×•×Ÿ',terms:['×‘×™×˜×—×•×Ÿ','security','defense','defence','idf','8200','×ž×•×“×™×¢×™×Ÿ','military','national security','defense tech','×©×¨×™×•×Ÿ','dual use']},
-  {id:'policy',label:'×ž×“×™× ×™×•×ª ×•×§×•× ×’×¨×¡',terms:['×§×•× ×’×¨×¡','congress','house of representatives','policy','public policy','×ž×“×™× ×™×•×ª','×ž×ž×©×œ','government','×›× ×¡×ª','×”×‘×™×ª ×”×œ×‘×Ÿ','senate']},
-  {id:'tech',label:'×˜×›× ×•×œ×•×’×™×” ×•-AI',terms:['technology','tech','ai','artificial intelligence','innovation','×—×“×©× ×•×ª','×˜×›× ×•×œ×•×’×™×”','data','cyber','meta','product']},
-  {id:'economy',label:'×›×œ×›×œ×” ×•×”×©×§×¢×•×ª',terms:['economics','economic','economy','finance','banking','investment','investments','private equity','vc','venture','×›×œ×›×œ×”','×”×©×§×¢×•×ª','××•×¦×¨','×‘× ×§ ×¢×•×œ×ž×™']},
-  {id:'academia',label:'××§×“×ž×™×” ×•×ž×—×§×¨',terms:['research','academic','academia','harvard','yale','princeton','oxford','georgetown','university','××§×“×ž×™×”','×ž×—×§×¨','×¡×˜×•×“× ×˜','candidate']},
-  {id:'law',label:'×ž×©×¤×˜ ×•×“×™×¤×œ×•×ž×˜×™×”',terms:['law','legal','attorney','lawyer','×ž×©×¤×˜','×ž×©×¤×˜×Ÿ','×“×™×¤×œ×•×ž×˜×™×”','×©×’×¨×™×¨','××•\"×','un','foreign affairs']}
+  {id:'security',label:'ביטחון',terms:['ביטחון','security','defense','defence','idf','8200','מודיעין','military','national security','defense tech','שריון','dual use']},
+  {id:'policy',label:'מדיניות וקונגרס',terms:['קונגרס','congress','house of representatives','policy','public policy','מדיניות','ממשל','government','כנסת','הבית הלבן','senate']},
+  {id:'tech',label:'טכנולוגיה ו-AI',terms:['technology','tech','ai','artificial intelligence','innovation','חדשנות','טכנולוגיה','data','cyber','meta','product']},
+  {id:'economy',label:'כלכלה והשקעות',terms:['economics','economic','economy','finance','banking','investment','investments','private equity','vc','venture','כלכלה','השקעות','אוצר','בנק עולמי']},
+  {id:'academia',label:'אקדמיה ומחקר',terms:['research','academic','academia','harvard','yale','princeton','oxford','georgetown','university','אקדמיה','מחקר','סטודנט','candidate']},
+  {id:'law',label:'משפט ודיפלומטיה',terms:['law','legal','attorney','lawyer','משפט','משפטן','דיפלומטיה','שגריר','או\"ם','un','foreign affairs']}
 ];
-// Columns in sheet: 0=Timestamp,1=×©× ×¤×¨×˜×™,2=×©× ×ž×©×¤×—×”,3=LinkedIn,4=×ª×¤×§×™×“,5=×ž×™×§×•×,6=×‘×™×• ×§×¦×¨,7=×‘×™×• ×ž×¤×•×¨×˜,8=××™×ž×™×™×œ,9=×˜×œ×¤×•×Ÿ,10+=×ª×ž×•× ×”
+// Columns in sheet: 0=Timestamp,1=×©× ×¤×¨×˜×™,2=×©× ×ž×©×¤×—×”,3=LinkedIn,4=×ª×¤×§×™×“,5=×ž×™×§×•×,6=×‘×™×• ×§×¦×¨,7=×‘×™×• ×ž×¤×•×¨×˜,8=××™×ž×™×™×œ,9=×˜×œ×¤×•×Ÿ, 10+=×ª×ž×•× ×”(if exists)
 var MEMBERS=[
-  {n:'××•×¤×™×¨ ×›×”×Ÿ',r:'×ž×•×¢×ž×“ ×œ-MPA, Princeton University',loc:'Princeton, NJ',li:'https://www.linkedin.com/in/ofir-cohen-innovation',em:'ofir.c@princeton.edu',bs:'×™×•×¢×¥ ×œ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª, ×—×“×©× ×•×ª ×•×˜×›× ×•×œ×•×’×™×”. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×‘×‘×™×ª ×”× ×‘×—×¨×™× ×”××ž×¨×™×§××™ ×•×¨××© ×ž×˜×” ×‘-DNAidea.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQGBNlwhEG6MwQ/profile-displayphoto-shrink_800_800/B4DZW1jyJSHAAo-/0/1742507811720?e=1776902400&v=beta&t=QbTyfk37kKQyXBlqTEGOPLRnJrleHsjZSinDqL-3eiQ'},
-  {n:'××¨×™××œ ×©×˜×™×™× ×‘×¨×’',r:'×”×‘× ×§ ×”×¢×•×œ×ž×™',loc:'Washington, DC',li:'https://www.linkedin.com/in/ariel-steinberg-090b89110/',em:'arielsteinberg2@gmail.com',bs:'8200 ×œ×ž×©×š ×¢×©×•×¨, ×’×•×’×œ ×‘××™×¨×•×¤×”, ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª ×‘×§× ×“×™ ×¡×§×•×œ. ×¢×•×¡×§ ×‘×”×©×§×¢×•×ª ×™×¨×•×§×•×ª ×‘×“×’×© ×¢×œ ×ž×™×—×–×•×¨.',ph:'https://media.licdn.com/dms/image/v2/D4E03AQGzBpHPYGDljQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1682957867726?e=1776902400&v=beta&t=0ldYSG5g7Lg8Q9ZjEVWXTerJyPcNEJoi1-nZv-PGJHA'},
-  {n:'×ž×©×” ×—× ×•×›×”',r:'×§×©×¨×™ ×ž×ž×©×œ ×œ×ª×¢×©×™×™×” ×”××•×•×™×¨×™×ª',loc:'Washington, DC',li:'https://www.linkedin.com/search/results/all/?keywords=%D7%9E%D7%A9%D7%94%20%D7%97%D7%A0%D7%95%D7%9B%D7%94',em:'Mosheh4@gmail.com',bs:'×¢×•×¨×š ×“×™×Ÿ ×•××™×© ×¦×™×‘×•×¨. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×©×¨ ×”×›×œ×›×œ×”, ×—×‘×¨ ×ž×•×¢×¦×ª ×”×¢×™×¨ ×”×•×“ ×”×©×¨×•×Ÿ ×•×¨×ž×´×˜ ×™×•×´×¨ ×”×ª×¢×©×™×™×” ×”××•×•×™×¨×™×ª. ×›×™×•× ×¤×•×¢×œ ×‘×ª×—×•× ×§×©×¨×™ ×ž×ž×©×œ ×‘×•×•×©×™× ×’×˜×•×Ÿ.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQF8uivZRattLQ/profile-displayphoto-crop_800_800/B4DZo8pkCBJAAI-/0/1761954121440?e=1776902400&v=beta&t=fbQWif6rX8uAXa8uQGjHN1EF2Dakg35cX9rVNiUF6aw'},
-  {n:'××‘×™×” ×œ×™×‘×¨×ž×Ÿ',r:'MPP ×‘××•× ×™×‘×¨×¡×™×˜×ª ×™×™×œ (×¤×•×œ×‘×¨×™×™×˜)',loc:'New Haven, CT',li:'https://www.linkedin.com/in/avia-liberman/',em:'avia.liberman@yale.edu',bs:'×™×•×¢×¦×ª ×›×œ×›×œ×” ×•×‘×™×˜×—×•×Ÿ. ×¨×ž×´×“ ×ž×—×§×¨ ×‘×ž×•×“×™×¢×™×Ÿ, ×¦×•×•×ª ×‘×™×˜×—×•×Ÿ ×œ××•×ž×™ ×‘×›×œ×›×œ× ×™×ª ×”×¨××©×™×ª ×‘×ž×©×¨×“ ×”××•×¦×¨, ×¦×•×•×ª ×™×©×¨××œ ×‘××’×£ ×”×›×œ×›×œ×™ ×‘-OECD ×•×—×•×§×¨×ª ×‘×ž×›×•×Ÿ ×ª×›×œ×™×ª.',ph:'https://media.licdn.com/dms/image/v2/D4E03AQG0pCi-WNT-AA/profile-displayphoto-crop_800_800/B4EZmcadL.IMAI-/0/1759265806393?e=1776902400&v=beta&t=E47sTuTMZmjgWI53vacSjsjCF3XOE0jX_VyTztk__is'},
-  {n:'× ×“×‘ ×©×•××˜',r:'×¡×’×Ÿ ×”×¦×™×¨ ×”×›×œ×›×œ×™ ×©×œ ×™×©×¨××œ ×‘×•×•×©×™× ×’×˜×•×Ÿ',loc:'Washington, DC',li:'https://www.linkedin.com/in/nadavshoat',em:'nadav.shoat@gmail.com',bs:'Director of Economic Strategy. ×ž×§×“× ×ž×“×™× ×™×•×ª ×ž×•×œ ×”×‘×™×ª ×”×œ×‘×Ÿ, ×ž×©×¨×“ ×”××•×¦×¨ ×”××ž×¨×™×§××™ ×•×ž×—×œ×§×ª ×”×ž×“×™× ×”, ×•×ž×•×¢×ž×“ ×œ-MPM ×‘×’×³×•×¨×’×³×˜××•×Ÿ.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQFjz200hxIZkQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1680563910767?e=1776902400&v=beta&t=9AAuGqNuFxJdK3HEs54eEOszokeKCZ45MBc-2pkNNFA'},
-  {n:'××•×¨×™ ×× ×’×³×œ',r:'×œ×©×¢×‘×¨ ×¡×ž× ×›×´×œ ×‘××¨×’×•×Ÿ ×”×’×’ ×”×¡×‘×™×‘×ª×™ Life and Environment',loc:'Oxford, England',li:'https://www.linkedin.com/in/uri-angel',em:'uriangelovadya@gmail.com',bs:'×¡×˜×•×“× ×˜ ×œ×ª×•××¨ ×©× ×™ ×‘-Energy Systems ×‘××•×§×¡×¤×•×¨×“, ×¢× ×¨×§×¢ ×‘×™×–×ž×•×ª ×¡×‘×™×‘×ª×™×ª, ×›×œ×›×œ×ª ×× ×¨×’×™×”, ×ž×“×™× ×™×•×ª ××§×œ×™× ×•×ž×™× ×¨×œ×™× ×§×¨×™×˜×™×™×.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQHFc76gminvPA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1703652748039?e=1776902400&v=beta&t=a630DOXV8CGnWl3S3phIjr3UO3N6XoH5XSTnwXBnFv4'},
-  {n:'Aaron Simpson-Grossman',r:'Legal Officer, IDF Ã¢â‚¬â€ Incoming Wharton MBA',loc:'Tel Aviv Ã¢â€ â€™ Philadelphia',li:'https://www.linkedin.com/in/aaron-s-g/',em:'aaronsimpsongrossman@gmail.com',bs:'5 years as IDF officer and lawyer (MAG Corps), shaping Israeli legal strategy before the ICJ. LLB+BA magna cum laude (Hebrew U), MSc Finance summa cum laude (TAU). Incoming Wharton MBA.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQF6lqlcPp7sqA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696317551725?e=1776902400&v=beta&t=yxLjzda4DrfLE3htd5yyGH8Ph3n9RZZBl-VoZsdg-kc'},
-  {n:'×¨×•×ª× ××•×¨×’-×§×œ×™×¡×§×™',r:'×”×ž×™×™×¡×“ ×•×”×ž× ×”×œ ×©×œ LIBRAEL',loc:'×ª×œ ××‘×™×‘',li:'https://www.linkedin.com/in/rotem-a-oreg/',em:'rotem.a.oreg@gmail.com',bs:'×—×•×§×¨, ×™×•×¢×¥ ×•×ž×¨×¦×” ×¢×œ ×”×¤×•×œ×™×˜×™×§×” ×•×ž×“×™× ×™×•×ª ×”×—×•×¥ ×©×œ ××¨×”×´×‘. ×ž×™×™×¡×“ ×•×ž× ×”×œ ××ª LIBRAEL, ×™×•×–×ž×” ×”×ž×—×‘×¨×ª ×‘×™×Ÿ ×™×©×¨××œ ×œ××ž×¨×™×§×” ×”×œ×™×‘×¨×œ×™×ª.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQGxAvhbRUQc5g/profile-displayphoto-shrink_800_800/B4DZO7gUvrHYAc-/0/1734017634216?e=1776902400&v=beta&t=63RM4Mia2vDnzVphEp-_TqgoXYkNOuR2Gfj0VLONkuw'},
-  {n:'×“×•×“ ×¡×œ×•×ž×•×Ÿ',r:'×™×•×¢×¥ ×œ×©×’×¨×™×¨ ×™×©×¨××œ ×‘××•×´×',loc:'New York',li:'https://www.linkedin.com/in/davidsalomon-ny',em:'Dudy.sal10@gmail.com',bs:'×œ×©×¢×‘×¨ ×™×•×¢×¥ ×¤×•×œ×™×˜×™ ×‘×›× ×¡×ª, ×¡×•×¤×¨ ×¤×¨×•×–×” ×•×œ×•×—× ×‘×™×—×™×“×” ×ž×™×•×—×“×ª. ×›×™×•× ×™×•×¢×¥ ×œ×©×’×¨×™×¨ ×™×©×¨××œ ×‘××•×´× ×‘× ×™×• ×™×•×¨×§.',ph:'https://media.licdn.com/dms/image/v2/D4E03AQGTtjCNPgqZwQ/profile-displayphoto-crop_800_800/B4EZzHAQcuGoAI-/0/1772865259883?e=1776902400&v=beta&t=OYFaEKxkUx1wwm_TcUvHcB8TLRYlLub5g7o-NdtGE6Y'},
-  {n:'×‘× ×™×” ×©×¨×œ×•',r:'×ž×™×™×¢×¥ ×œ×§×¨× ×•×ª ×”×•×Ÿ ×¡×™×›×•×Ÿ ×‘×“×™×¤× ×¡ ×•×˜×§',loc:'Silicon Valley',li:'https://www.linkedin.com/in/benaya-cherlow/',em:'cherlow7@gmail.com',bs:'×™×•×¢×¥ ×™×—×¡×™ ×—×•×¥ ×‘×§×•× ×’×¨×¡, ×§×¦×™×Ÿ ×§×©×¨×™ ×—×•×¥ ×•×‘×¢×œ ×ª×•××¨ ×©× ×™ ×ž-Syracuse University. ×›×™×•× ×ž×—×‘×¨ ×‘×™×Ÿ ×ª×œ ××‘×™×‘, ×•×•×©×™× ×’×˜×•×Ÿ ×•×¡×™×œ×™×§×•×Ÿ ×•××œ×™ ×‘×ª×—×•× ×”×‘×™×˜×—×•×Ÿ ×”×œ××•×ž×™.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQG1jIrM_75UtQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1671546068575?e=1776902400&v=beta&t=Bx0elvutne235xktTFCYdQgs5rNwpCgxVU6ClOIxOCw'},
-  {n:'×©×ž×¢×•×Ÿ ×¨×¤××œ×™',r:'×™×•×¢×¥ ×ž×“×™× ×™ ×œ×©×¢×‘×¨ ×œ×©×¨ ×œ×¢× ×™×™× ×™× ××¡×˜×¨×˜×’×™×™×, ×¨×•×Ÿ ×“×¨×ž×¨',loc:'×™×©×¨××œ',li:'https://www.linkedin.com/in/shimon-refaeli-0587b419a',em:'shimonrefaeli5@gmail.com',bs:'×‘×¢×œ × ×™×¡×™×•×Ÿ ×‘×ž×•×¢×¦×” ×œ×‘×™×˜×—×•×Ÿ ×œ××•×ž×™ ×•×‘×—×“×¨ ×ž×¦×‘. ×ž×™×™×¡×“ ×”×¤×•×“×§××¡×˜ "×ž×¡×¢ ×‘×™×Ÿ ×¨×¢×™×•× ×•×ª" ×•×›×•×ª×‘ ×‘× ×•×©××™ ×ž×“×™× ×™×•×ª ×•×‘×™×˜×—×•×Ÿ.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQFfjvKCgXOpCA/profile-displayphoto-crop_800_800/B4DZqtMsVTJIAI-/0/1763842378390?e=1776902400&v=beta&t=JTX9usExxXfL7QZE5o85vCpGgKO3rbpEZ5vOW8YlsY4'},
-  {n:'×¢×•×–×™ ×§×œ×›×”×™×™×',r:'Client Solutions Manager, Meta Israel',loc:'×™×©×¨××œ',li:'https://www.linkedin.com/in/uzi-kalchaim-strategy/',em:'uzikal36@gmail.com',bs:'×¢×•×¨×š ×“×™×Ÿ ×•×›×œ×›×œ×Ÿ. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×œ×©×¨×™ ×”××•×¦×¨ ×•×”×‘×™×˜×—×•×Ÿ, ×•×¢×‘×“ ×’× ×‘×ª×—×•× ×§×¨× ×•×ª ×”×”×©×§×¢×”. ×›×™×•× Client Solutions Manager ×‘-Meta Israel.',ph:'https://media.licdn.com/dms/image/v2/D4E03AQHTFJJ_cDzsog/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714136960312?e=1776902400&v=beta&t=eIbuXFpOCUw4ReLYaF7Oopvaq7_hMr9jXgTUxZP46eU'},
-  {n:'×ž××™×” ×©×™×œ×•× ×™',r:'×¡×˜×•×“× ×˜×™×ª ×œ-Government and Economics, Harvard University',loc:'Harvard College',li:'https://www.linkedin.com/in/maya-shiloni-b40436252/',em:'maya_shiloni@college.harvard.edu',bs:'×¢×•×¡×§×ª ×‘×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª, ×ž×•×“×™×¢×™×Ÿ ×•×ž× ×”×™×’×•×ª ×¡×˜×•×“× ×˜×™××œ×™×ª. ×‘×•×’×¨×ª 8200 ×¢× × ×™×¡×™×•×Ÿ ×‘×–×™×¨×” ×”×¦×™×‘×•×¨×™×ª ×•×”×¤×¨×œ×ž× ×˜×¨×™×ª ×‘××¨×¦×•×ª ×”×‘×¨×™×ª ×•×‘×™×©×¨××œ.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQGl5wuZEaEcUQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1724958502441?e=1776902400&v=beta&t=F7QE2UcgUEbQaPXPcyfcJ5ltETs08wdMsADH3K6amg4'},
-  {n:'×¢×ž×¨×™ ×¢×˜×¨',r:'Former Chief of Staff, Ministry of Diaspora Affairs | Global COO ELNET',loc:'×™×©×¨××œ',li:'https://www.linkedin.com/in/omriattar/',em:'Mail@omriattar.com',bs:'×¢×•×¡×§ ×‘×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª, ××¡×˜×¨×˜×’×™×” ×•×§×©×¨×™× ×‘×™× ×œ××•×ž×™×™×, ×¢× × ×™×¡×™×•×Ÿ ×‘×¢×‘×•×“×” ×ž×ž×©×œ×ª×™×ª ×•×‘×–×™×¨×” ×”×™×”×•×“×™×ª-×’×œ×•×‘×œ×™×ª.',bf:'×¢×ž×¨×™ ×¢×˜×¨ ×”×•× ×ž× ×”×œ ×‘×›×™×¨ ×•××™×© ×¦×™×‘×•×¨ ×‘×¢×œ × ×™×¡×™×•×Ÿ ×¨×‘ ×‘×¢×‘×•×“×” ×ž×ž×©×œ×ª×™×ª, ×‘×–×™×¨×” ×”×™×”×•×“×™×ª-×’×œ×•×‘×œ×™×ª ×•×‘×§×™×“×•× ×§×©×¨×™× ×‘×™×Ÿ ×™×©×¨××œ ×œ×§×”×™×œ×•×ª ×™×”×•×“×™×•×ª ×‘×¢×•×œ×. ×”×•× ×›×™×”×Ÿ ×›×¨××© ×ž×˜×” ×‘×ž×©×¨×“ ×”×ª×¤×•×¦×•×ª ×•×›-Global COO ×©×œ ELNET, ×•×¤×•×¢×œ ×‘×¦×•×ž×ª ×©×‘×™×Ÿ ××¡×˜×¨×˜×’×™×”, ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª, ×”× ×”×’×” ×§×”×™×œ×ª×™×ª ×•×“×™×¤×œ×•×ž×˜×™×” ×¦×™×‘×•×¨×™×ª.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQEU0a7VOZ-3gQ/profile-displayphoto-scale_400_400/B4DZpr9mifGQAg-/0/1762747902523?e=1776902400&v=beta&t=udOOJ9ux9Jt_UHOIOg6K-vLyDni0bFlVzuK9JwbJfKI'},
-  {n:'×©×’×™× ×©×¨×•×Ÿ',r:'×¢×•×¡×§ ×‘×ž×“×™× ×™×•×ª ×˜×›× ×•×œ×•×’×™×”, ×—×“×©× ×•×ª ×•×™×–×ž×•×ª',loc:'×™×©×¨××œ',li:'https://www.linkedin.com/in/sagie-sharon/',em:'Sagiesh.1998@gmail.com',bs:'×¤×•×¢×œ ×‘×ž×ž×©×§ ×©×‘×™×Ÿ ×—×™× ×•×š, ×˜×›× ×•×œ×•×’×™×” ×•×™×–×ž×•×ª, ×•×ž×ª×ž×§×“ ×‘×©××œ×•×ª ×©×œ ×ž×“×™× ×™×•×ª, ×ž×•×¡×“×•×ª ×¦×™×‘×•×¨ ×•×”×™×¢×¨×›×•×ª ×œ×¢×™×“×Ÿ ×˜×›× ×•×œ×•×’×™ ×ž×©×ª× ×”.',ph:'https://media.licdn.com/dms/image/v2/D4E03AQGjPyPR0c_KeA/profile-displayphoto-crop_800_800/B4EZo4HswLHgAI-/0/1761878134584?e=1776902400&v=beta&t=wfMGcLI0G4mcIjVZ7WPrN2RM6azUZ7io4k9FqgCE1n0'},
-  {n:'×“× ×” ×’×™× ×–×‘×•×¨×’',r:'Deloitte ×™×©×¨××œ - ×ž×’×–×¨ ×¦×™×‘×•×¨×™',loc:'Columbia University',li:'https://www.linkedin.com/in/dana-ginzburg-507046164/',em:'',bs:'×‘× ×™×™×ª ×©×•×ª×¤×•×™×•×ª ×‘×™×Ÿ ×”×ž×’×–×¨ ×”×¦×™×‘×•×¨×™ ×œ×ž×’×–×¨ ×”×¤×¨×˜×™. ×¡×˜×•×“× ×˜×™×ª ×œ-MPA ×‘×ª×•×›× ×™×ª Global Leadership ×‘×§×•×œ×•×ž×‘×™×” ×¢× × ×™×¡×™×•×Ÿ ×‘×¤×¨×•×™×§×˜×™× ×œ××•×ž×™×™× ×•×‘×”×•×‘×œ×ª ×ª×”×œ×™×›×™× ×‘×ž×’×–×¨ ×”×¦×™×‘×•×¨×™.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQHa5xHeAiLG3w/profile-displayphoto-shrink_800_800/B4DZPhzF0CGoAc-/0/1734660088148?e=1777507200&v=beta&t=skIIL4FMJDHWOLFXcN9oXMSo0SHX-9tajJFWBCzqViQ'},
-  {n:'×œ×™×‘×™ ××œ×•×Ÿ',r:'×©×œ×™×—×ª ×¢×¨×•×¥ 14 ×œ×‘×™×ª ×”×œ×‘×Ÿ',loc:'××¨×¦×•×ª ×”×‘×¨×™×ª',li:'https://www.linkedin.com/in/libby-blanca-alon-3314a21a0/',em:'',bs:'×¢×™×ª×•× ××™×ª ×”×ž×¡×§×¨×ª ××ª ×”×¤×•×œ×™×˜×™×§×” ×”××ž×¨×™×§××™×ª, ×”×‘×™×ª ×”×œ×‘×Ÿ ×•×™×—×¡×™ ××¨×”×´×‘â€“×™×©×¨××œ. ×œ×©×¢×‘×¨ ×¨××© ×“×¡×§ ×”×—×•×¥ ×‘×¢×¨×•×¥ 14 ×•×ž×¤×™×§×ª ×“×¡×§ ×”×—×•×¥ ×‘×¢×¨×•×¥ 13.',ph:'https://media.licdn.com/dms/image/v2/D4D03AQEIngi_BTKeQA/profile-displayphoto-crop_800_800/B4DZnBuTo9GgAI-/0/1759891767800?e=1777507200&v=beta&t=CdACjxAJ4S_2R0N8GN0Qqlb3mlm8TNf1Z4mRszs3YgI'}
+  {n:'××•×¤×™×¨ ×›×”×Ÿ',r:'MPA candidate, Princeton University',loc:'Princeton, NJ',li:'https://www.linkedin.com/in/ofir-cohen-innovation',em:'ofir.c@princeton.edu',bs:'MPA candidate at Princeton, focusing on AI policy, innovation, and economic competitiveness. Former advisor in the U.S. House of Representatives. Previously Chief of Staff at DNAidea.',ph:''},
+  {n:'××¨×™××œ ×©×˜×™×™× ×‘×¨×’',r:'×× ×œ×™×¡×˜, ×”×‘× ×§ ×”×¢×•×œ×ž×™',loc:'Washington, DC',li:'https://www.linkedin.com/in/ariel-steinberg-090b89110/',em:'arielsteinberg2@gmail.com',bs:'×¢×©×•×¨ ×‘×™×—×™×“×” 8200, ×’×•×’×œ ×‘××™×¨×•×¤×”, ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª ×‘×§× ×“×™ ×¡×§×•×œ â€” ×•×¢×›×©×™×• ×× ×œ×™×¡×˜ ×‘×‘× ×§ ×”×¢×•×œ×ž×™. ×ž×ª×¢× ×™×™×Ÿ ×‘×”×©×§×¢×•×ª ×™×¨×•×§×•×ª ×‘×“×’×© ×¢×œ ×ž×™×—×–×•×¨.',ph:''},
+  {n:'×ž×©×” ×—× ×•×›×”',r:'Government Relations, ×”×ª×¢×©×™×™×” ×”××•×•×™×¨×™×ª',loc:'Washington, DC',li:'',em:'Mosheh4@gmail.com',bs:'×¢×•×¨×š ×“×™×Ÿ ×•××™×© ×¦×™×‘×•×¨. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×©×¨ ×”×›×œ×›×œ×” ×•×—×‘×¨ ×ž×•×¢×¦×ª ×¢×™×¨ ×”×•×“ ×”×©×¨×•×Ÿ. ×›×™×•× ×§×©×¨×™ ×ž×ž×©×œ ×œ×ª×¢×©×™×™×” ×”××•×•×™×¨×™×ª ×‘×•×•×©×™× ×’×˜×•×Ÿ.',ph:''},
+  {n:'××‘×™×” ×œ×™×‘×¨×ž×Ÿ',r:'MPP candidate, Yale (Fulbright)',loc:'New Haven, CT',li:'https://www.linkedin.com/in/avia-liberman/',em:'avia.liberman@yale.edu',bs:'×¨×ž"×“ ×ž×—×§×¨ ×‘×ž×•×“×™×¢×™×Ÿ â†’ ×›×œ×›×œ× ×™×ª ×¨××©×™×ª ××•×¦×¨ â†’ OECD â†’ ×ž×›×•×Ÿ ×ª×›×œ×™×ª â†’ MPP Yale ×“×¨×š ×¤×•×œ×‘×¨×™×™×˜. ×ž×ª×ž×§×“ ×‘-Economic Peacebuilding.',ph:''},
+  {n:'× ×“×‘ ×©×•××˜',r:'×¡×’×Ÿ ×”×¦×™×¨ ×”×›×œ×›×œ×™ ×©×œ ×™×©×¨××œ ×‘×•×•×©×™× ×’×˜×•×Ÿ',loc:'Washington, DC',li:'https://www.linkedin.com/in/nadavshoat',em:'nadav.shoat@gmail.com',bs:'Director of Economic Strategy â€” ×§×™×“×•× ×ž×“×™× ×™×•×ª ×ž×•×œ ×”×‘×™×ª ×”×œ×‘×Ÿ, ×ž×©×¨×“ ×”××•×¦×¨ ×”××ž×¨×™×§××™ ×•×ž×—×œ×§×ª ×”×ž×“×™× ×”. MPM candidate, Georgetown.',ph:''},
+  {n:'××•×¨×™ ×× ×’×³×œ',r:'MSc Energy Systems, Oxford University',loc:'Oxford, England',li:'https://www.linkedin.com/in/uri-angel',em:'uriangelovadya@gmail.com',bs:'×‘×•×’×¨ PPE ×ž×”××•× ×™×‘×¨×¡×™×˜×” ×”×¢×‘×¨×™×ª, ×œ×©×¢×‘×¨ ×¡×ž× ×›"×œ ××¨×’×•×Ÿ ×—×™×™× ×•×¡×‘×™×‘×”. ×ž×ª×ž×§×“ ×‘×›×œ×›×œ×ª ×× ×¨×’×™×”, ×ž×¢×‘×¨ ×œ×× ×¨×’×™×•×ª ×ž×ª×—×“×©×•×ª ×•×ž×™× ×¨×œ×™× ×§×¨×™×˜×™×™×.',ph:''},
+  {n:'Aaron Simpson-Grossman',r:'Legal Officer, IDF â€” Incoming Wharton MBA',loc:'Tel Aviv â†’ Philadelphia',li:'https://www.linkedin.com/in/aaron-s-g/',em:'aaronsimpsongrossman@gmail.com',bs:'5 years as IDF officer and lawyer (MAG Corps), shaping Israeli legal strategy before the ICJ. LLB+BA magna cum laude (Hebrew U), MSc Finance summa cum laude (TAU). Incoming Wharton MBA.',ph:''},
+  {n:'×¨×•×ª× ××•×¨×’-×§×œ×™×¡×§×™',r:'×ž×™×™×¡×“ ×•×ž× ×”×œ, ×¢×ž×•×ª×ª LIBRAEL',loc:'×ª×œ ××‘×™×‘',li:'https://www.linkedin.com/in/rotem-a-oreg/',em:'rotem.a.oreg@gmail.com',bs:'×—×•×§×¨, ×™×•×¢×¥ ×•×ž×¨×¦×” ×¢×œ ×¤×•×œ×™×˜×™×§×” ×•×ž×“×™× ×™×•×ª ×—×•×¥ ××ž×¨×™×§××™×ª. ×ž× ×”×œ ××ª "×•×•×©×™× ×’×˜×•×Ÿ ××§×¡×¤×¨×¡". ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×œ×©×’×¨×™×¨ ××¨×”"×‘ ×‘×™×©×¨××œ.',ph:''},
+  {n:'×“×•×“ ×¡×œ×•×ž×•×Ÿ',r:'×™×•×¢×¥ ×œ×©×’×¨×™×¨ ×™×©×¨××œ ×‘××•"×',loc:'New York',li:'https://www.linkedin.com/in/davidsalomon-ny',em:'Dudy.sal10@gmail.com',bs:'×™×•×¢×¥ ×¤×•×œ×™×˜×™ ×‘×›× ×¡×ª, ×¡×•×¤×¨ ×¤×¨×•×–×”, ×œ×•×—× ×‘×™×—×™×“×” ×ž×™×•×—×“×ª â€” ×›×™×•× ×™×•×¢×¥ ×œ×©×’×¨×™×¨ ×™×©×¨××œ ×‘××•"× ×‘× ×™×• ×™×•×¨×§.',ph:''},
+  {n:'×‘× ×™×” ×©×¨×œ×•',r:'×™×•×¢×¥ ×§×¨× ×•×ª ×”×•×Ÿ ×¡×™×›×•×Ÿ â€” Defense Tech',loc:'Silicon Valley',li:'https://www.linkedin.com/in/benaya-cherlow/',em:'cherlow7@gmail.com',bs:'×§×¦×™×Ÿ ×©×¨×™×•×Ÿ ×•×§×©×¨×™ ×—×•×¥, ×ª×•××¨ ×©× ×™ Syracuse, ×™×•×¢×¥ ×§×©×¨×™ ×—×•×¥ ×‘×§×•× ×’×¨×¡, ×ª×¤×§×™×“ ×‘×‘×™×ª ×”×œ×‘×Ÿ. ×›×™×•× ×ž×—×‘×¨ ×‘×™×Ÿ ×ª×œ ××‘×™×‘, ×•×•×©×™× ×’×˜×•×Ÿ ×•×¡×™×œ×™×§×•×Ÿ ×•××œ×™ ×‘×ª×—×•× ×‘×™×˜×—×•×Ÿ ×œ××•×ž×™.',ph:''},
+  {n:'×©×ž×¢×•×Ÿ ×¨×¤××œ×™',r:'×¢×ž×™×ª ×‘×›×™×¨, ×ž×›×•×Ÿ ×“×•×“ ×œ×ž×“×™× ×™×•×ª ×‘×™×˜×—×•×Ÿ',loc:'×™×©×¨××œ',li:'https://www.linkedin.com/in/shimon-refaeli-0587b419a',em:'shimonrefaeli5@gmail.com',bs:'×œ×©×¢×‘×¨ ×™×•×¢×¥ ×ž×“×™× ×™ ×œ×©×¨ ×¨×•×Ÿ ×“×¨×ž×¨, ×¢×‘×•×“×” ×‘×ž×•×¢×¦×” ×œ×‘×™×˜×—×•×Ÿ ×œ××•×ž×™ ×•×—×“×¨ ×ž×¦×‘. ×ž×™×™×¡×“ ×¤×•×“×§××¡×˜ "×ž×¡×¢ ×‘×™×Ÿ ×¨×¢×™×•× ×•×ª". ×›×ª×‘ ×‘-Wall Street Journal.',ph:''},
+  {n:'×¢×•×–×™ ×§×œ×›×”×™×™×',r:'Client Solutions Manager, Meta Israel',loc:'×™×©×¨××œ',li:'https://www.linkedin.com/in/uzi-kalchaim-strategy/',em:'uzikal36@gmail.com',bs:'×¢×•"×“ ×•×›×œ×›×œ×Ÿ. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×œ×©×¨×™ ×”××•×¦×¨ ×•×”×‘×™×˜×—×•×Ÿ, ×¢×•"×“ ×§×¨× ×•×ª ×”×©×§×¢×” ×‘×”×¨×¦×•×’ ×¤×•×§×¡ × ××ž×Ÿ. ×›×™×•× CSM ×‘×¦×•×•×ª Media & Aggregators ×‘×ž×˜×.',ph:''}
 ];
 
 var PROFILE_OVERRIDES={
   'Aaron Simpson-Grossman':{
-    n:'××”×¨×Ÿ ×¡×™×ž×¤×¡×•×Ÿ-×’×¨×•×¡×ž×Ÿ',
-    r:'×§×¦×™×Ÿ ×ž×©×¤×˜×™ ×‘-IDF ×•×ž×•×¢×ž×“ ×œ-Wharton MBA',
-    loc:'×ª×œ ××‘×™×‘ -> ×¤×™×œ×“×œ×¤×™×”',
-    hd:'×ž×©×¤×˜×Ÿ ×•×§×¦×™×Ÿ ×‘×¢×œ × ×™×¡×™×•×Ÿ ×‘×–×™×¨×” ×”×‘×™×˜×—×•× ×™×ª ×•×”×‘×™× ×œ××•×ž×™×ª',
-    bs:'×©×™×¨×ª ×›×—×ž×© ×©× ×™× ×›×§×¦×™×Ÿ ×•×›×ž×©×¤×˜×Ÿ ×‘×¤×¨×§×œ×™×˜×•×ª ×”×¦×‘××™×ª, ×•×”×™×” ×©×•×ª×£ ×œ×¢×™×¦×•×‘ ×”××¡×˜×¨×˜×’×™×” ×”×ž×©×¤×˜×™×ª ×©×œ ×™×©×¨××œ ×‘×–×™×¨×” ×”×‘×™× ×œ××•×ž×™×ª.',
-    bf:'××¨×•×Ÿ ×¡×™×ž×¤×¡×•×Ÿ-×’×¨×•×¡×ž×Ÿ ×©×™×¨×ª ×›×—×ž×© ×©× ×™× ×›×§×¦×™×Ÿ ×•×›×ž×©×¤×˜×Ÿ ×‘×¤×¨×§×œ×™×˜×•×ª ×”×¦×‘××™×ª, ×•×”×™×” ×©×•×ª×£ ×œ×¢×™×¦×•×‘ ×”××¡×˜×¨×˜×’×™×” ×”×ž×©×¤×˜×™×ª ×©×œ ×™×©×¨××œ ×‘×–×™×¨×” ×”×‘×™× ×œ××•×ž×™×ª. ×”×•× ×‘×¢×œ ×ª××¨×™× ×‘×ž×©×¤×˜×™×, ×›×œ×›×œ×” ×•×ž×™×ž×•×Ÿ, ×•×¦×¤×•×™ ×œ×”×ª×—×™×œ MBA ×‘-Wharton. ×ª×—×•×ž×™ ×”×¢× ×™×™×Ÿ ×©×œ×• ×›×•×œ×œ×™× ×”×©×§×¢×•×ª, ×˜×›× ×•×œ×•×’×™×•×ª ×“×•-×©×™×ž×•×©×™×•×ª ×•×ª×©×ª×™×•×ª.',
-    hl:['×©×™×¨×ª ×›×§×¦×™×Ÿ ×•×›×ž×©×¤×˜×Ÿ ×‘×¤×¨×§×œ×™×˜×•×ª ×”×¦×‘××™×ª ×‘×ž×©×š ×›×—×ž×© ×©× ×™×','×”×™×” ×©×•×ª×£ ×œ×¢×™×¦×•×‘ ×”××¡×˜×¨×˜×’×™×” ×”×ž×©×¤×˜×™×ª ×©×œ ×™×©×¨××œ ×‘×–×™×¨×” ×”×‘×™× ×œ××•×ž×™×ª','×‘×¢×œ ×¨×§×¢ ×ž×©×•×œ×‘ ×‘×ž×©×¤×˜×™×, ×›×œ×›×œ×” ×•×ž×™×ž×•×Ÿ']
+    n:'אהרן סימפסון-גרוסמן',
+    r:'קצין משפטי ב-IDF ומועמד ל-Wharton MBA',
+    loc:'תל אביב -> פילדלפיה',
+    hd:'משפטן וקצין בעל ניסיון בזירה הביטחונית והבינלאומית',
+    bs:'שירת כחמש שנים כקצין וכמשפטן בפרקליטות הצבאית, והיה שותף לעיצוב האסטרטגיה המשפטית של ישראל בזירה הבינלאומית.',
+    bf:'ארון סימפסון-גרוסמן שירת כחמש שנים כקצין וכמשפטן בפרקליטות הצבאית, והיה שותף לעיצוב האסטרטגיה המשפטית של ישראל בזירה הבינלאומית. הוא בעל תארים במשפטים, כלכלה ומימון, וצפוי להתחיל MBA ב-Wharton. תחומי העניין שלו כוללים השקעות, טכנולוגיות דו-שימושיות ותשתיות.',
+    hl:['שירת כקצין וכמשפטן בפרקליטות הצבאית במשך כחמש שנים','היה שותף לעיצוב האסטרטגיה המשפטית של ישראל בזירה הבינלאומית','בעל רקע משולב במשפטים, כלכלה ומימון']
   },
   'Maya Shiloni':{
-    r:'×¡×˜×•×“× ×˜×™×ª ×œ-Government and Economics, Harvard University',
+    r:'סטודנטית ל-Government and Economics, Harvard University',
     loc:'Harvard College',
     em:'maya_shiloni@college.harvard.edu',
-    hd:'×¢×•×¡×§×ª ×‘×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª, ×ž×•×“×™×¢×™×Ÿ ×•×ž× ×”×™×’×•×ª ×¡×˜×•×“× ×˜×™××œ×™×ª',
-    bs:'×¡×˜×•×“× ×˜×™×ª ×‘-Harvard University ×œ×ª×—×•×ž×™ Government and Economics ×•×‘×•×’×¨×ª ×™×—×™×“×ª 8200. ×¦×‘×¨×” × ×™×¡×™×•×Ÿ ×‘×ž×•×“×™×¢×™×Ÿ, ×‘× ×™×”×•×œ ×ž×•×¦×¨ ×•×‘×¢×©×™×™×” ×¦×™×‘×•×¨×™×ª ×‘××¨×¦×•×ª ×”×‘×¨×™×ª ×•×‘×™×©×¨××œ.',
-    bf:'×ž××™×” ×©×™×œ×•× ×™ ×”×™× ×¡×˜×•×“× ×˜×™×ª ×‘-Harvard University ×œ×ª×—×•×ž×™ Government and Economics ×•×‘×•×’×¨×ª ×™×—×™×“×ª 8200, ×©× ×©×™×¨×ª×” ×‘× ×™×”×•×œ ×¤×¨×•×™×§×˜×™× ×•×‘× ×™×”×•×œ ×ž×•×¦×¨. ×‘×”×ž×©×š ×¦×‘×¨×” × ×™×¡×™×•×Ÿ ×’× ×‘×–×™×¨×” ×”×¦×™×‘×•×¨×™×ª ×•×”×¤×¨×œ×ž× ×˜×¨×™×ª, ×›×•×œ×œ ×”×ª×ž×—×•×ª ××¦×œ ×—×‘×¨ ×”×§×•× ×’×¨×¡ Josh Gottheimer ×•×¢×‘×•×“×” ×‘×›× ×¡×ª ×™×©×¨××œ. ×œ×¦×“ ×–××ª ×”×•×‘×™×œ×” ×™×•×–×ž×•×ª ×¡×˜×•×“× ×˜×™××œ×™×•×ª ×ž×©×ž×¢×•×ª×™×•×ª, ×•×‘×”×Ÿ Harvard College Israel Trek ×•×”-International Israel Summit. ×ª×—×•×ž×™ ×”×¢× ×™×™×Ÿ ×©×œ×” ×›×•×œ×œ×™× ×ž×©×¤×˜, ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª ×•×¤×•×œ×™×˜×™×§×” ×™×©×¨××œ×™×ª.',
-    hl:['×‘×•×’×¨×ª ×™×—×™×“×ª 8200 ×¢× × ×™×¡×™×•×Ÿ ×‘×ž×•×“×™×¢×™×Ÿ ×•×‘× ×™×”×•×œ ×ž×•×¦×¨','×¦×‘×¨×” × ×™×¡×™×•×Ÿ ×‘×–×™×¨×” ×”×¦×™×‘×•×¨×™×ª ×•×”×¤×¨×œ×ž× ×˜×¨×™×ª ×‘××¨×¦×•×ª ×”×‘×¨×™×ª ×•×‘×™×©×¨××œ','×”×•×‘×™×œ×” ×™×•×–×ž×•×ª ×¡×˜×•×“× ×˜×™××œ×™×•×ª ×ž×¨×›×–×™×•×ª ×‘-Harvard ×•×‘×§×”×™×œ×” ×”×™×©×¨××œ×™×ª']
+    hd:'עוסקת במדיניות ציבורית, מודיעין ומנהיגות סטודנטיאלית',
+    bs:'סטודנטית ב-Harvard University לתחומי Government and Economics ובוגרת יחידת 8200. צברה ניסיון במודיעין, בניהול מוצר ובעשייה ציבורית בארצות הברית ובישראל.',
+    bf:'מאיה שילוני היא סטודנטית ב-Harvard University לתחומי Government and Economics ובוגרת יחידת 8200, שם שירתה בניהול פרויקטים ובניהול מוצר. בהמשך צברה ניסיון גם בזירה הציבורית והפרלמנטרית, כולל התמחות אצל חבר הקונגרס Josh Gottheimer ועבודה בכנסת ישראל. לצד זאת הובילה יוזמות סטודנטיאליות משמעותיות, ובהן Harvard College Israel Trek וה-International Israel Summit. תחומי העניין שלה כוללים משפט, מדיניות ציבורית ופוליטיקה ישראלית.',
+    hl:['בוגרת יחידת 8200 עם ניסיון במודיעין ובניהול מוצר','צברה ניסיון בזירה הציבורית והפרלמנטרית בארצות הברית ובישראל','הובילה יוזמות סטודנטיאליות מרכזיות ב-Harvard ובקהילה הישראלית']
   },
-  '×ž××™×” ×©×™×œ×•× ×™':{
-    n:'×ž××™×” ×©×™×œ×•× ×™',
+  'מאיה שילוני':{
+    n:'Maya Shiloni',
     em:'maya_shiloni@college.harvard.edu'
   },
   'Sagie Sharon':{
-    n:'×©×’×™× ×©×¨×•×Ÿ',
-    r:'×¢×•×¡×§ ×‘×ž×“×™× ×™×•×ª ×˜×›× ×•×œ×•×’×™×”, ×—×“×©× ×•×ª ×•×™×–×ž×•×ª',
-    loc:'×™×©×¨××œ',
+    n:'שגיא שרון',
+    r:'עוסק במדיניות טכנולוגיה, חדשנות ויזמות',
+    loc:'ישראל',
     em:'Sagiesh.1998@gmail.com',
-    bs:'×¤×•×¢×œ ×‘×ž×ž×©×§ ×©×‘×™×Ÿ ×—×™× ×•×š, ×˜×›× ×•×œ×•×’×™×” ×•×™×–×ž×•×ª, ×•×ž×ª×ž×§×“ ×‘×©××œ×•×ª ×©×œ ×ž×“×™× ×™×•×ª, ×ž×•×¡×“×•×ª ×¦×™×‘×•×¨ ×•×”×™×¢×¨×›×•×ª ×œ×¢×™×“×Ÿ ×˜×›× ×•×œ×•×’×™ ×ž×©×ª× ×”.',
-    bf:'×©×’×™× ×©×¨×•×Ÿ ×¤×•×¢×œ ×‘×ž×ž×©×§ ×©×‘×™×Ÿ ×—×™× ×•×š, ×˜×›× ×•×œ×•×’×™×” ×•×™×–×ž×•×ª, ×•×ž×ª×ž×§×“ ×‘××•×¤×Ÿ ×©×‘×• ×ž×¢×¨×›×•×ª ×¦×™×‘×•×¨×™×•×ª ×•×ž×•×¡×“×•×ª ×—×™× ×•×š × ×¢×¨×›×™× ×œ×¢×™×“×Ÿ ×˜×›× ×•×œ×•×’×™ ×ž×©×ª× ×”. ×”×¨×§×¢ ×©×œ×• ×ž×©×œ×‘ ×¢×©×™×™×” ×—×‘×¨×ª×™×ª, ×™×•×–×ž×•×ª ×—×™× ×•×›×™×•×ª ×•×¢×‘×•×“×” ×¡×‘×™×‘ ×ª×”×œ×™×›×™ ×©×™× ×•×™ ×•×—×“×©× ×•×ª.'
+    bs:'פועל בממשק שבין חינוך, טכנולוגיה ויזמות, ומתמקד בשאלות של מדיניות, מוסדות ציבור והיערכות לעידן טכנולוגי משתנה.',
+    bf:'שגיא שרון פועל בממשק שבין חינוך, טכנולוגיה ויזמות, ומתמקד באופן שבו מערכות ציבוריות ומוסדות חינוך נערכים לעידן טכנולוגי משתנה. הרקע שלו משלב עשייה חברתית, יוזמות חינוכיות ועבודה סביב תהליכי שינוי וחדשנות.'
   },
   'Omri Attar':{
-    n:'×¢×ž×¨×™ ×¢×˜×¨',
-    em:'Mail@omriattar.com',
-    bf:'×¢×ž×¨×™ ×¢×˜×¨ ×”×•× ×ž× ×”×œ ×‘×›×™×¨ ×•××™×© ×¦×™×‘×•×¨ ×‘×¢×œ × ×™×¡×™×•×Ÿ ×¨×‘ ×‘×¢×‘×•×“×” ×ž×ž×©×œ×ª×™×ª, ×‘×–×™×¨×” ×”×™×”×•×“×™×ª-×’×œ×•×‘×œ×™×ª ×•×‘×§×™×“×•× ×§×©×¨×™× ×‘×™×Ÿ ×™×©×¨××œ ×œ×§×”×™×œ×•×ª ×™×”×•×“×™×•×ª ×‘×¢×•×œ×. ×”×•× ×›×™×”×Ÿ ×›×¨××© ×ž×˜×” ×‘×ž×©×¨×“ ×”×ª×¤×•×¦×•×ª ×•×›-Global COO ×©×œ ELNET, ×•×¤×•×¢×œ ×‘×¦×•×ž×ª ×©×‘×™×Ÿ ××¡×˜×¨×˜×’×™×”, ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª, ×”× ×”×’×” ×§×”×™×œ×ª×™×ª ×•×“×™×¤×œ×•×ž×˜×™×” ×¦×™×‘×•×¨×™×ª.'
+    n:'עמרי אתר',
+    em:'Mail@omriattar.com'
   },
   'Ofir Cohen':{
-    n:'××•×¤×™×¨ ×›×”×Ÿ',
-    r:'×ž×•×¢×ž×“ ×œ-MPA, Princeton University',
+    n:'אופיר כהן',
+    r:'מועמד ל-MPA, Princeton University',
     loc:'Princeton, NJ',
-    hd:'×™×•×¢×¥ ×œ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª, ×—×“×©× ×•×ª ×•×˜×›× ×•×œ×•×’×™×”',
-    bs:'×ž×•×¢×ž×“ ×œ-MPA ×‘-Princeton University, ×”×ž×ª×ž×§×“ ×‘×ž×“×™× ×™×•×ª AI, ×—×“×©× ×•×ª ×•×ª×—×¨×•×ª×™×•×ª ×›×œ×›×œ×™×ª. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×‘×‘×™×ª ×”× ×‘×—×¨×™× ×”××ž×¨×™×§××™ ×•×¨××© ×ž×˜×” ×‘-DNAidea.',
-    bf:'××•×¤×™×¨ ×›×”×Ÿ ×”×•× ×ž×•×¢×ž×“ ×œ-MPA ×‘-Princeton University, ×¢× ×”×ª×ž×§×“×•×ª ×‘×ž×“×™× ×™×•×ª ×˜×›× ×•×œ×•×’×™×”, AI, ×—×“×©× ×•×ª ×•×ª×—×¨×•×ª×™×•×ª ×›×œ×›×œ×™×ª. ×‘×¢×‘×¨ ×©×™×ž×© ×™×•×¢×¥ ×‘×‘×™×ª ×”× ×‘×—×¨×™× ×”××ž×¨×™×§××™ ×‘×ª×—×•×ž×™ ×—×•×¥ ×•×›×œ×›×œ×”, ×•×‘×”×ž×©×š ×›×™×”×Ÿ ×›×¨××© ×ž×˜×” ×‘-DNAidea. ×¤×•×¢×œ ×‘×¦×•×ž×ª ×©×‘×™×Ÿ ×ž×“×™× ×™×•×ª ×¦×™×‘×•×¨×™×ª, ×©×•×ª×¤×•×™×•×ª ×‘×™×Ÿ-×ž×’×–×¨×™×•×ª ×•×—×“×©× ×•×ª, ×•×ž×ª×¢× ×™×™×Ÿ ×‘×ž×™×•×—×“ ×‘×‘× ×™×™×ª ×’×©×¨×™× ×‘×™×Ÿ ×ž×ž×©×œ, ×¤×™×œ× ×ª×¨×•×¤×™×” ×•×”×ž×’×–×¨ ×”×¤×¨×˜×™ ×¡×‘×™×‘ ×˜×›× ×•×œ×•×’×™×•×ª ×ž×ª×¤×ª×—×•×ª.',
-    hl:['×©×™×ž×© ×™×•×¢×¥ ×‘×‘×™×ª ×”× ×‘×—×¨×™× ×”××ž×¨×™×§××™ ×‘×ª×—×•×ž×™ ×—×•×¥ ×•×›×œ×›×œ×”','×›×™×”×Ÿ ×›×¨××© ×ž×˜×” ×‘-DNAidea ×•×”×•×‘×™×œ ×¢×‘×•×“×” ××¡×˜×¨×˜×’×™×ª ×¨×‘-×ž×’×–×¨×™×ª','×ž×ª×ž×§×“ ×‘×ž×“×™× ×™×•×ª ×˜×›× ×•×œ×•×’×™×”, AI ×•×—×“×©× ×•×ª ×‘×–×™×¨×” ×”×¦×™×‘×•×¨×™×ª']
+    hd:'יועץ למדיניות ציבורית, חדשנות וטכנולוגיה',
+    bs:'מועמד ל-MPA ב-Princeton University, המתמקד במדיניות AI, חדשנות ותחרותיות כלכלית. לשעבר יועץ בבית הנבחרים האמריקאי וראש מטה ב-DNAidea.',
+    bf:'אופיר כהן הוא מועמד ל-MPA ב-Princeton University, עם התמקדות במדיניות טכנולוגיה, AI, חדשנות ותחרותיות כלכלית. בעבר שימש יועץ בבית הנבחרים האמריקאי בתחומי חוץ וכלכלה, ובהמשך כיהן כראש מטה ב-DNAidea. פועל בצומת שבין מדיניות ציבורית, שותפויות בין-מגזריות וחדשנות, ומתעניין במיוחד בבניית גשרים בין ממשל, פילנתרופיה והמגזר הפרטי סביב טכנולוגיות מתפתחות.',
+    hl:['שימש יועץ בבית הנבחרים האמריקאי בתחומי חוץ וכלכלה','כיהן כראש מטה ב-DNAidea והוביל עבודה אסטרטגית רב-מגזרית','מתמקד במדיניות טכנולוגיה, AI וחדשנות בזירה הציבורית']
   },
   'Uzi Kalchaim':{
     r:'Client Solutions Manager, Meta Israel',
-    loc:'×™×©×¨××œ',
-    bs:'×¢×•×¨×š ×“×™×Ÿ ×•×›×œ×›×œ×Ÿ. ×œ×©×¢×‘×¨ ×™×•×¢×¥ ×œ×©×¨×™ ×”××•×¦×¨ ×•×”×‘×™×˜×—×•×Ÿ, ×•×¢×‘×“ ×’× ×‘×ª×—×•× ×§×¨× ×•×ª ×”×”×©×§×¢×”. ×›×™×•× ×¤×•×¢×œ ×‘-Meta Israel ×‘×¦×•×•×ª Media & Aggregators.',
-    bf:'×¢×•×–×™ ×›×œ×—×™×™× ×”×•× ×¢×•×¨×š ×“×™×Ÿ ×•×›×œ×›×œ×Ÿ, ×¢× ×¨×§×¢ ×‘×¢×‘×•×“×” ×¦×™×‘×•×¨×™×ª, ×‘×™×™×¢×•×¥ ×œ×ž×“×™× ×™×•×ª ×›×œ×›×œ×™×ª ×•×‘×ª×—×•× ×”×”×©×§×¢×•×ª. ×‘×¢×‘×¨ ×©×™×ž×© ×™×•×¢×¥ ×œ×©×¨×™ ×”××•×¦×¨ ×•×”×‘×™×˜×—×•×Ÿ, ×•×›×Ÿ ×¢×¡×§ ×‘×§×¨× ×•×ª ×”×©×§×¢×” ×•×‘-Private Equity. ×›×™×•× ×¤×•×¢×œ ×‘-Meta Israel ×›-Client Solutions Manager ×‘×¦×•×•×ª Media & Aggregators.'
+    loc:'ישראל',
+    bs:'עורך דין וכלכלן. לשעבר יועץ לשרי האוצר והביטחון, ועבד גם בתחום קרנות ההשקעה. כיום פועל ב-Meta Israel בצוות Media & Aggregators.',
+    bf:'עוזי כלחיים הוא עורך דין וכלכלן, עם רקע בעבודה ציבורית, בייעוץ למדיניות כלכלית ובתחום ההשקעות. בעבר שימש יועץ לשרי האוצר והביטחון, וכן עסק בקרנות השקעה וב-Private Equity. כיום פועל ב-Meta Israel כ-Client Solutions Manager בצוות Media & Aggregators.'
   }
 };
 
@@ -101,13 +95,12 @@ function ini(n){var p=n.trim().split(/\s+/);return p.length===1?p[0][0].toUpperC
 function e(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function oneLine(s){return(s||'').replace(/\s+/g,' ').trim()}
 function normalizeSearchText(s){
-  return oneLine(s).toLowerCase().replace(/[â€œâ€"'.:,;()\-_/]/g,' ').replace(/\s+/g,' ').trim();
+  return oneLine(s).toLowerCase().replace(/[“”"'.:,;()\-_/]/g,' ').replace(/\s+/g,' ').trim();
 }
 function isCorruptedText(value){
   var text=oneLine(value||'');
   if(!text)return false;
-  if(/[Ã—Ãƒï¿½Â¤â„¢Å“Å¾Ëœâ€º]/.test(text))return true;
-  if(/[Ã¢][â‚¬â€â€ ]/.test(text))return true;
+  if(/[×Ã�]/.test(text))return true;
   if(/\?{3,}/.test(text))return true;
   return false;
 }
@@ -122,12 +115,12 @@ function cleanLiveHighlights(value){
 }
 function sanitizeIncomingMember(m){
   if(!m)return null;
-  var li=normalizeLinkedInUrl(m.li,m.n);
-  var cleaned={
+  var li=oneLine(m.li||'');
+  if(li&&!/^https?:\/\//i.test(li))li='https://'+li;
+  return {
     n:cleanLiveText(m.n),
     r:cleanLiveText(m.r),
-    loc:formatLocation(cleanLiveText(m.loc),cleanLiveText(m.loc2)),
-    loc2:cleanLiveText(m.loc2),
+    loc:cleanLiveText(m.loc),
     hd:cleanLiveText(m.hd||m.headline||''),
     sd:cleanLiveText(m.sd||m.sub||m.subtitle||''),
     hl:cleanLiveHighlights(m.hl||m.bullets||m.highlights||''),
@@ -137,29 +130,9 @@ function sanitizeIncomingMember(m){
     bf:cleanLiveText(m.bf),
     ph:normImg(m.ph||'')
   };
-  if(!cleaned.n)return null;
-  return cleaned;
 }
 function isValidEmail(value){
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(oneLine(value||''));
-}
-function normalizeLinkedInUrl(li,name){
-  var raw=oneLine(li||'');
-  var person=oneLine(name||'');
-  if(!raw)return '';
-  if(/linkedin\.com/i.test(raw)){
-    return /^https?:\/\//i.test(raw) ? raw : 'https://'+raw.replace(/^\/+/,'');
-  }
-  if(/^https?:\/\//i.test(raw)){
-    if(/\s/.test(raw) || !/\.[a-z]{2,}/i.test(raw)){
-      return person ? 'https://www.linkedin.com/search/results/all/?keywords='+encodeURIComponent(person) : '';
-    }
-    return raw;
-  }
-  if(/\s/.test(raw) || raw.indexOf('.')<0){
-    return person ? 'https://www.linkedin.com/search/results/all/?keywords='+encodeURIComponent(person) : '';
-  }
-  return 'https://'+raw;
 }
 function preview(s,n){
   s=oneLine(s);
@@ -170,20 +143,8 @@ function preview(s,n){
   if(last>60)cut=cut.slice(0,last);
   return cut+'...';
 }
-function membersLabel(n){return n+' ×—×‘×¨×™×'}
-function formatLocation(primary,specific){
-  var main=oneLine(primary||'').replace(/\s*\([^)]*\)\s*$/,'').trim();
-  var detail=oneLine(specific||'');
-  if(!main)return detail;
-  return detail ? main+' ('+detail+')' : main;
-}
-function locationRegion(m){
-  return oneLine((m&&m.loc)||'').replace(/\s*\([^)]*\)\s*$/,'').trim();
-}
-function getRegionFilters(){
-  return Array.from(new Set(MEMBERS.map(locationRegion).filter(Boolean))).sort(function(a,b){return a.localeCompare(b,'en');});
-}
-function getCacheKey(){return 'nextgen_forum_members_cache_v6'}
+function membersLabel(n){return n+' חברים'}
+function getCacheKey(){return 'nextgen_forum_members_cache_v4'}
 function saveMembersCache(){
   try{localStorage.setItem(getCacheKey(),JSON.stringify(MEMBERS));}catch(e){}
 }
@@ -192,35 +153,16 @@ function loadMembersCache(){
     var raw=localStorage.getItem(getCacheKey());
     if(!raw)return [];
     var parsed=JSON.parse(raw);
-    return Array.isArray(parsed)?parsed.map(sanitizeIncomingMember).filter(Boolean):[];
+    return Array.isArray(parsed)?parsed.map(function(m){return sanitizeIncomingMember(m)||m;}):[];
   }catch(e){return []}
 }
 function getMemberCorpus(m){return normalizeSearchText([m.n,m.r,m.loc,m.bs,m.bf,m.em].join(' '))}
-function mergeIntoMembers(list){
-  (list||[]).forEach(function(fm){
-    var found=MEMBERS.find(function(m){return sameMember(m,fm)});
-    if(found)mergeMemberData(found,fm);
-    else MEMBERS.push(fm);
-  });
-  dedupeMembers();
-}
-function withRetries(fn,tries,delay){
-  tries=Math.max(1,tries||1);
-  delay=delay||1200;
-  return fn().catch(function(err){
-    if(tries<=1)throw err;
-    return new Promise(function(resolve){setTimeout(resolve,delay);})
-      .then(function(){return withRetries(fn,tries-1,delay);});
-  });
-}
 function getMemberTopics(m){
   var corpus=getMemberCorpus(m),hits=[];
   TOPIC_RULES.forEach(function(t){
     if(t.terms.some(function(term){return corpus.indexOf(normalizeSearchText(term))>=0;}))hits.push(t.label);
   });
-  var region=locationRegion(m);
-  if(region)hits.push(region);
-  return Array.from(new Set(hits));
+  return hits;
 }
 function getSearchTokens(q){
   q=normalizeSearchText(q);
@@ -237,7 +179,7 @@ function getSearchTokens(q){
 function parseHighlightsField(value){
   if(Array.isArray(value))return value.filter(Boolean).slice(0,3);
   return String(value||'')
-    .split(/\r?\n|\u2022|â€¢|;+/g)
+    .split(/\r?\n|\u2022|•|;+/g)
     .map(function(p){return cleanProfessionalText(p);})
     .filter(Boolean)
     .slice(0,3);
@@ -253,7 +195,7 @@ function truncateClean(s,n){
 }
 function splitBioParts(text){
   return oneLine(text)
-    .replace(/->|â†’|â€”|â€“/g,'. ')
+    .replace(/->|→|—|–/g,'. ')
     .replace(/,\s+/g,'. ')
     .split(/[.!?;]+/g)
     .map(function(p){return p.trim();})
@@ -261,8 +203,8 @@ function splitBioParts(text){
 }
 function cleanProfessionalText(text){
   return oneLine((text||'')
-    .replace(/^([A-Za-z\u0590-\u05FF' -]+)\s+(×”×•×|×”×™×)\s+/,'')
-    .replace(/\b(×›×™×•×|×•×¢×›×©×™×•|currently|now)\b/ig,'')
+    .replace(/^([A-Za-z\u0590-\u05FF' -]+)\s+(הוא|היא)\s+/,'')
+    .replace(/\b(כיום|ועכשיו|currently|now)\b/ig,'')
     .replace(/\s+/g,' ')
     .trim());
 }
@@ -277,7 +219,7 @@ function getHighlights(m){
       var key=p.toLowerCase();
       if(!p||p.length<18||seen[key])return false;
       seen[key]=true;
-      return !/(^×× ×™\b| ×ž×ª×¢× ×™×™×Ÿ\b| interested\b| enjoys\b| plans\b| ×¦×¤×•×™ ×œ×”×ª×—×™×œ\b| currently\b)/i.test(p);
+      return !/(^אני\b| מתעניין\b| interested\b| enjoys\b| plans\b| צפוי להתחיל\b| currently\b)/i.test(p);
     })
     .slice(0,3);
 }
@@ -287,14 +229,14 @@ function professionalHeadline(m){
   var role=oneLine(m.r||'')
     .replace(/\b(University|College|candidate|student|incoming)\b.*$/i,'')
     .replace(/\b(MPA|MPP|MPM|MBA|MSc|MA|BA|LLB|PhD)\b.*$/i,'')
-    .replace(/\b(×ž×•×¢×ž×“|×ž×•×¢×ž×“×ª|×¡×˜×•×“× ×˜|×¡×˜×•×“× ×˜×™×ª)\b.*$/i,'')
-    .replace(/^×ž×•×¢×ž×“(?:×ª)? ×œ-[^,]+,\s*/,'')
-    .replace(/^×¡×˜×•×“× ×˜(?:×™×ª)? ×œ-[^,]+,\s*/,'')
-    .replace(/^[,.\-â€“â€”\s]+|[,.\-â€“â€”\s]+$/g,'')
+    .replace(/\b(מועמד|מועמדת|סטודנט|סטודנטית)\b.*$/i,'')
+    .replace(/^מועמד(?:ת)? ל-[^,]+,\s*/,'')
+    .replace(/^סטודנט(?:ית)? ל-[^,]+,\s*/,'')
+    .replace(/^[,.\-–—\s]+|[,.\-–—\s]+$/g,'')
     .trim();
   if(role&&role.length<=70)return role;
   var first=getHighlights(m)[0]||'';
-  return truncateClean(first||role||'×—×‘×¨/×ª ×‘×¤×•×¨×•×',70);
+  return truncateClean(first||role||'חבר/ת בפורום',70);
 }
 function professionalSubtitle(m){
   if(m.sd)return truncateClean(m.sd,95);
@@ -304,7 +246,12 @@ function professionalSubtitle(m){
   return '';
 }
 function displayLocation(m){
-  return oneLine(m.loc||'');
+  var loc=oneLine(m.loc||'');
+  if(!loc)return '';
+  if(m.hd||m.sd||(Array.isArray(m.hl)?m.hl.length:String(m.hl||'').trim()))return '';
+  var headline=professionalHeadline(m),subtitle=professionalSubtitle(m);
+  if(loc===headline||loc===subtitle)return '';
+  return loc;
 }
 function renderHighlights(m,limit){
   var points=getHighlights(m);
@@ -331,7 +278,7 @@ function getExpandedDetail(m){
   var headlineText=normalizeSearchText(professionalHeadline(m));
   var subtitleText=normalizeSearchText(professionalSubtitle(m));
   var pointsNorm=normalizeSearchText(pointsText);
-  var candidates=[oneLine(m.bf||''),oneLine(m.bs||''),oneLine(m.r||'')].filter(Boolean);
+  var candidates=[oneLine(m.bf||''),oneLine(m.bs||'')].filter(Boolean);
   var detailed=candidates.find(function(text){
     var norm=normalizeSearchText(text);
     return norm&&norm!==pointsNorm&&norm!==headlineText&&norm!==subtitleText&&text.length>=45;
@@ -349,13 +296,11 @@ function memberId(m){
   if(li.indexOf('ofir-cohen-innovation')>=0)return 'ofir';
   if(li.indexOf('maya-shiloni')>=0)return 'maya';
   if(li.indexOf('omri')>=0)return 'omri';
-  if(li.indexOf('dana-ginzburg')>=0)return 'dana';
   if(li.indexOf('aaron-s-g')>=0)return 'aaron';
   if(li.indexOf('sagie-sharon')>=0)return 'sagie';
   var n=normalizeSearchText(m.n||'');
-  if(n.indexOf('omri')>=0||n.indexOf('×¢×ž×¨×™')>=0)return 'omri';
+  if(n.indexOf('omri')>=0||n.indexOf('עמרי')>=0)return 'omri';
   if(n.indexOf('maya shiloni')>=0)return 'maya';
-  if(n.indexOf('dana ginzburg')>=0||n.indexOf('×“× ×” ×’×™× ×–×‘×•×¨×’')>=0)return 'dana';
   if(n.indexOf('ofir cohen')>=0)return 'ofir';
   if(n.indexOf('aaron simpson grossman')>=0)return 'aaron';
   if(n.indexOf('sagie sharon')>=0)return 'sagie';
@@ -363,14 +308,7 @@ function memberId(m){
 }
 function isSteeringMember(m){
   var id=memberId(m);
-  return id==='ofir'||id==='maya'||id==='omri'||id==='dana';
-}
-function surnameSortKey(m){
-  var n=oneLine((m&&m.n)||'').trim();
-  if(!n)return '';
-  var parts=n.split(/\s+/).filter(Boolean);
-  var surname=(parts.length>1?parts.slice(1).join(' '):parts[0])||n;
-  return normalizeSearchText(surname+' '+n);
+  return id==='ofir'||id==='maya'||id==='omri';
 }
 function sameMember(a,b){
   if(!a||!b)return false;
@@ -389,7 +327,7 @@ function mergeMemberData(target,src){
   if((!target.bs||isCorruptedText(target.bs))&&src.bs&&!isCorruptedText(src.bs))target.bs=src.bs;
   if((!target.r||isCorruptedText(target.r))&&src.r&&!isCorruptedText(src.r))target.r=src.r;
   if((!target.loc||isCorruptedText(target.loc))&&src.loc&&!isCorruptedText(src.loc))target.loc=src.loc;
-  if((!target.li||!normalizeLinkedInUrl(target.li,target.n))&&src.li)target.li=normalizeLinkedInUrl(src.li,src.n||target.n);
+  if(!target.li&&src.li)target.li=src.li;
   if((!target.em||!isValidEmail(target.em))&&isValidEmail(src.em))target.em=src.em;
 }
 function dedupeMembers(){
@@ -399,9 +337,7 @@ function dedupeMembers(){
     if(found)mergeMemberData(found,m);
     else merged.push(m);
   });
-  MEMBERS=merged
-    .filter(function(m){return m&&m.n&&!isCorruptedText(m.n);})
-    .map(applyProfileOverrides);
+  MEMBERS=merged.map(applyProfileOverrides);
 }
 
 var LI='<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>';
@@ -419,12 +355,12 @@ function card(m){
   var topics=getMemberTopics(m);
   var corpus=getMemberCorpus(m)+' '+topics.map(normalizeSearchText).join(' ');
   var av=m.ph
-    ?'<img src="'+e(m.ph)+'" alt="'+e(m.n)+'" referrerpolicy="no-referrer" loading="eager" decoding="async" onload="this.parentNode.style.background=\'transparent\'" onerror="this.remove();this.parentNode.style.background=\''+bg+'\'">'
+    ?'<img src="'+e(m.ph)+'" alt="'+e(m.n)+'" onload="this.parentNode.style.background=\'transparent\'" onerror="this.remove();this.parentNode.style.background=\''+bg+'\'">'
     :ini(m.n);
   var email=isValidEmail(m.em||'')?(m.em||'').trim():'';
   var safe=email.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
   var li=m.li?'<a class="btn-li" href="'+e(m.li)+'" target="_blank" rel="noopener">'+LI+'LinkedIn</a>':'';
-  var em=email?'<button class="btn-em" onclick="rev(this,\''+safe+'\')">'+MI+'<span>×”×¦×’ ×ž×™×™×œ</span></button>':'';
+  var em=email?'<button class="btn-em" onclick="rev(this,\''+safe+'\')">'+MI+'<span>הצג מייל</span></button>':'';
   return '<div class="card" data-s="'+e(corpus)+'" data-topics="'+e(topics.join('|'))+'">'
     +'<div class="card-top">'
       +'<div class="avatar" style="background:'+(m.ph?'#d0cdc5':bg)+'">'+av+'</div>'
@@ -438,7 +374,7 @@ function card(m){
     +'<div class="card-bio">'
       +'<div class="bio-short">'+renderHighlights(m,previewCount)+'</div>'
       +(expanded.hasMore?'<div class="bio-full">'+expanded.html+'</div>':'')
-      +(expanded.hasMore?'<button class="bio-toggle" onclick="tgl(this)">×§×¨× ×¢×•×“ '+DN+'</button>':'')
+      +(expanded.hasMore?'<button class="bio-toggle" onclick="tgl(this)">קרא עוד '+DN+'</button>':'')
     +'</div>'
     +(li||em?'<div class="card-footer">'+li+em+'</div>':'')
   +'</div>'
@@ -446,7 +382,7 @@ function card(m){
 
 function rev(btn,em){
   if(btn.classList.contains('on')){if(navigator.clipboard)navigator.clipboard.writeText(em);return}
-  btn.classList.add('on');btn.querySelector('span').textContent=em;btn.title='×œ×—×™×¦×” ×ª×¢×ª×™×§ ××ª ×”×›×ª×•×‘×ª'
+  btn.classList.add('on');btn.querySelector('span').textContent=em;btn.title='לחיצה תעתיק את הכתובת'
 }
 function tgl(btn){
   var cardEl=btn.closest('.card'),bio=btn.closest('.card-bio'),s=bio.querySelector('.bio-short'),f=bio.querySelector('.bio-full');
@@ -455,7 +391,7 @@ function tgl(btn){
   if(cardEl)cardEl.classList.toggle('expanded',expanding);
   s.style.display=expanding?'none':'-webkit-box';
   f.style.display=expanding?'block':'none';
-  btn.innerHTML=expanding?'×§×¨× ×¤×—×•×ª '+UP:'×§×¨× ×¢×•×“ '+DN
+  btn.innerHTML=expanding?'קרא פחות '+UP:'קרא עוד '+DN
 }
 function cardMatches(c,q){
   if(!q)return true;
@@ -482,15 +418,10 @@ function renderTopicBar(){
   var bar=document.getElementById('topicBar');
   if(!bar)return;
   if(!MEMBERS.length){bar.innerHTML='';return;}
-  var regionFilters=getRegionFilters();
-  bar.innerHTML='<button class="topic-chip'+(!ACTIVE_TOPIC?' active':'')+'" type="button" onclick="setTopic(\'\')">\u05D4\u05DB\u05D5\u05DC <span>(' + MEMBERS.length + ')</span></button>'
+  bar.innerHTML='<button class="topic-chip'+(!ACTIVE_TOPIC?' active':'')+'" type="button" onclick="setTopic(\'\')">הכול <span>(' + MEMBERS.length + ')</span></button>'
     +TOPIC_RULES.map(function(t){
       var count=MEMBERS.filter(function(m){return getMemberTopics(m).includes(t.label)}).length;
       return '<button class="topic-chip'+(ACTIVE_TOPIC===t.label?' active':'')+'" type="button" onclick="setTopic(\''+e(t.label).replace(/'/g,"&#39;")+'\')">'+e(t.label)+' <span>(' + count + ')</span></button>';
-    }).join('')
-    +regionFilters.map(function(label){
-      var count=MEMBERS.filter(function(m){return getMemberTopics(m).includes(label)}).length;
-      return '<button class="topic-chip'+(ACTIVE_TOPIC===label?' active':'')+'" type="button" onclick="setTopic(\''+e(label).replace(/'/g,"&#39;")+'\')">'+e(label)+' <span>(' + count + ')</span></button>';
     }).join('');
 }
 function setTopic(topic){
@@ -508,17 +439,11 @@ function renderCards(){
   var steering=document.getElementById('steeringGrid');
   var steeringSection=document.getElementById('steeringSection');
   var steeringMembers=MEMBERS.filter(isSteeringMember).sort(function(a,b){
-    var priority={ofir:0,maya:1,omri:2,dana:3};
-    var pa=priority[memberId(a)];
-    var pb=priority[memberId(b)];
-    if(pa===undefined)pa=99;
-    if(pb===undefined)pb=99;
-    if(pa!==pb)return pa-pb;
-    return surnameSortKey(a).localeCompare(surnameSortKey(b),'he');
+    var oa=memberId(a)==='ofir'?0:1;
+    var ob=memberId(b)==='ofir'?0:1;
+    return oa-ob;
   });
-  var mainMembers=MEMBERS.filter(function(m){return !isSteeringMember(m);}).sort(function(a,b){
-    return surnameSortKey(a).localeCompare(surnameSortKey(b),'he');
-  });
+  var mainMembers=MEMBERS.filter(function(m){return !isSteeringMember(m);});
   g.innerHTML=mainMembers.map(card).join('');
   if(steeringMembers.length){
     steering.innerHTML=steeringMembers.map(card).join('');
@@ -527,7 +452,7 @@ function renderCards(){
     steering.innerHTML='';
     steeringSection.style.display='none';
   }
-  setLoading(MEMBERS.length?'':'×˜×•×¢×Ÿ ××ª ×—×‘×¨×™ ×”×¤×•×¨×•×...');
+  setLoading(MEMBERS.length?'':'טוען את חברי הפורום...');
 }
 
 function syncBioButtons(){
@@ -545,7 +470,8 @@ function syncBioButtons(){
 // Initial render from hardcoded data
 var g=document.getElementById('grid');
 var cachedMembers=loadMembersCache();
-if(cachedMembers.length)mergeIntoMembers(cachedMembers.map(applyProfileOverrides));
+if(cachedMembers.length)MEMBERS=cachedMembers.map(applyProfileOverrides);
+dedupeMembers();
 renderCards();
 syncBioButtons();
 renderTopicBar();
@@ -560,12 +486,7 @@ function normImg(v){
   if(!v)return '';
   var m=v.match(/=image\(\s*"([^"]+)"/i)||v.match(/=image\(\s*'([^']+)'/i);
   if(m&&m[1])v=m[1].trim();
-  if(/^https?:\/\//i.test(v)){
-    if(/:\/\/media\.licdn\.com\//i.test(v)){
-      return 'https://images.weserv.nl/?url='+encodeURIComponent(v.replace(/^https?:\/\//i,''))+'&w=400&h=400&fit=cover&output=jpg';
-    }
-    return v;
-  }
+  if(/^https?:\/\//i.test(v))return v;
   var d=v.match(/https?:\/\/drive\.google\.com\/file\/d\/([^\/?#]+)/i)
     ||v.match(/https?:\/\/drive\.google\.com\/open\?id=([^&#]+)/i)
     ||v.match(/https?:\/\/drive\.google\.com\/uc\?(?:[^#]*&)?id=([^&#]+)/i)
@@ -611,7 +532,7 @@ function loadFromAppScript(){
     };
     var s=document.createElement('script');
     s.onerror=function(){delete window[cb];clearTimeout(t);reject(new Error('script error'))};
-    s.src=DATA_ENDPOINT+(DATA_ENDPOINT.indexOf('?')>=0?'&':'?')+'callback='+cb+'&_='+(Date.now());
+    s.src=DATA_ENDPOINT+(DATA_ENDPOINT.indexOf('?')>=0?'&':'?')+'callback='+cb;
     document.head.appendChild(s);
   });
 }
@@ -626,7 +547,7 @@ function loadFromGviz(){
     var cols=resp.table.cols;
     var rows=resp.table.rows;
     function fi(){for(var k=0;k<arguments.length;k++)for(var i=0;i<cols.length;i++)if((cols[i].label||'').toLowerCase().includes(arguments[k]))return i;return-1}
-    var C={fn:fi('\u05E4\u05E8\u05D8\u05D9','first'),ln:fi('\u05DE\u05E9\u05E4\u05D7\u05D4','last'),li:fi('linkedin','\u05DC\u05D9\u05E0\u05E7\u05D3'),ro:fi('\u05EA\u05E4\u05E7\u05D9\u05D3','\u05E2\u05D5\u05E9\u05D9\u05DD','role','title'),lo:fi('\u05D0\u05D9\u05E4\u05D4 \u05D0\u05EA\u05DD \u05D1\u05E2\u05D5\u05DC\u05DD?','\u05D0\u05D9\u05E4\u05D4 \u05D0\u05EA\u05DD \u05D1\u05E2\u05D5\u05DC\u05DD','\u05DE\u05D9\u05E7\u05D5\u05DD','\u05D0\u05D9\u05E4\u05D4','location','city'),lo2:fi('\u05DE\u05D9\u05E7\u05D5\u05DD \u05E1\u05E4\u05E6\u05D9\u05E4\u05D9','\u05D0\u05DD \u05E6\u05D9\u05D9\u05E0\u05EA\u05DD \u05D0\u05D7\u05E8','\u05D4\u05D9\u05DB\u05DF \u05D0\u05EA\u05DD \u05D4\u05D9\u05D5\u05DD','specific location','location specific'),hd:fi('\u05DB\u05D5\u05EA\u05E8\u05EA \u05E8\u05D0\u05E9\u05D9\u05EA','headline','main title'),sd:fi('\u05DB\u05D5\u05EA\u05E8\u05EA \u05DE\u05E9\u05E0\u05D9\u05EA','subtitle','sub title'),hl:fi('3 \u05D1\u05D5\u05DC\u05D8\u05D9\u05DD \u05DC\u05E4\u05D9\u05E8\u05D5\u05D8','3 \u05D1\u05D5\u05DC\u05D8\u05D9\u05DD','\u05D1\u05D5\u05DC\u05D8\u05D9\u05DD','highlights','bullets'),bs:fi('\u05E7\u05E6\u05E8','short'),em:fi('\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC','\u05DE\u05D9\u05D9\u05DC','mail','email'),ph:fi('\u05EA\u05DE\u05D5\u05E0\u05D4','photo','image','picture','img','avatar','url')};
+    var C={fn:fi('פרטי','first'),ln:fi('משפחה','last'),li:fi('linkedin','לינקד'),ro:fi('תפקיד','עושים','role','title'),lo:fi('מיקום','איפה','location','city'),hd:fi('כותרת ראשית','headline','main title'),sd:fi('כותרת משנית','subtitle','sub title'),hl:fi('3 בולטים לפירוט','3 בולטים','בולטים','highlights','bullets'),bs:fi('קצר','short'),em:fi('אימייל','מייל','mail','email'),ph:fi('תמונה','photo','image','picture','img','avatar','url')};
     if(C.fn<0)C.fn=1;
     if(C.ln<0)C.ln=2;
     if(C.li<0)C.li=3;
@@ -658,13 +579,21 @@ function loadFromGviz(){
     var fresh=rows.map(function(r){
       var fn=cv(r,C.fn),ln=cv(r,C.ln);
       if(!fn&&!ln)return null;
-      var li=normalizeLinkedInUrl(cv(r,C.li),(fn+' '+ln).trim());
+      var li=cv(r,C.li);if(li&&!li.startsWith('http'))li='https://'+li;
       var ph=normImg(cv(r,C.ph));
       var bs=cv(r,C.bs),bf=cv(r,C.bf);
-      return sanitizeIncomingMember({n:(fn+' '+ln).trim(),r:cv(r,C.ro),loc:cv(r,C.lo),loc2:cv(r,C.lo2),hd:cv(r,C.hd),sd:cv(r,C.sd),hl:cv(r,C.hl),li:li,em:cv(r,C.em),bs:bs,bf:bf,ph:ph});
+      return sanitizeIncomingMember({n:(fn+' '+ln).trim(),r:cv(r,C.ro),loc:cv(r,C.lo),hd:cv(r,C.hd),sd:cv(r,C.sd),hl:cv(r,C.hl),li:li,em:cv(r,C.em),bs:bs,bf:bf,ph:ph});
     }).filter(Boolean);
     if(fresh.length>0){
-      mergeIntoMembers(fresh);
+      // Merge photos into existing members, add new members
+      fresh.forEach(function(fm){
+        var found=MEMBERS.find(function(m){return sameMember(m,fm)});
+        if(found){
+          mergeMemberData(found,fm);
+        }
+        else MEMBERS.push(fm)
+      });
+      dedupeMembers();
       renderCards();
       syncBioButtons();
       renderTopicBar();
@@ -677,30 +606,26 @@ function loadFromGviz(){
   };
   var s=document.createElement('script');
   s.onerror=function(){delete window[cb]};
-  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=reqId:0;out:json;callback:'+cb+'&_='+(Date.now());
+  s.src='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=reqId:0;out:json;callback:'+cb;
   document.head.appendChild(s);
   });
 }
 function loadSheet(){
   var p=Promise.resolve();
   if(DATA_ENDPOINT){
-    p=p.then(function(){return withRetries(loadFromAppScript,2,1500);}).catch(function(err){
+    p=p.then(function(){return loadFromAppScript();}).catch(function(err){
       console.warn('App Script load failed',err);
     });
   }
   return p
-    .then(function(){return withRetries(loadFromGviz,3,1500);})
+    .then(function(){return loadFromGviz();})
     .catch(function(err){
       if(MEMBERS.length){
         setLoading('');
       }else{
-        setLoading('×œ× ×”×¦×œ×—× ×• ×œ×˜×¢×•×Ÿ ××ª ×—×‘×¨×™ ×”×¤×•×¨×•× ×›×¨×’×¢. × ×¡×• ×œ×¨×¢× ×Ÿ ×©×•×‘.');
+        setLoading('לא הצלחנו לטעון את חברי הפורום כרגע. נסו לרענן שוב.');
       }
       console.warn('Member data refresh failed',err);
     });
 }
 loadSheet();
-window.addEventListener('pageshow',function(){setTimeout(loadSheet,600)});
-document.addEventListener('visibilitychange',function(){
-  if(document.visibilityState==='visible')setTimeout(loadSheet,400);
-});
