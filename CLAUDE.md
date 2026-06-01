@@ -127,8 +127,34 @@ No environment variables or secrets needed.
 
 No external dependencies or npm packages.
 
+## Bilingual (English/Hebrew) Support
+
+The site now supports both English and Hebrew with automatic language switching:
+
+- **Default language**: English (when user first visits)
+- **Language toggle**: Button in the topbar (says "עברית" when English is selected, "English" when Hebrew is selected)
+- **Translation system**: `translations.js` contains all text in both languages
+- **Text Direction**: Automatically switches between LTR (English) and RTL (Hebrew) via `dir` attribute on HTML element
+- **Language Preference**: Saved to localStorage (`forumLanguage`)
+- **Implementation**: Uses `data-i18n` attributes on HTML elements for automatic translation
+
+### How Translation Works
+
+1. User clicks language toggle → calls `setLanguage(lang)`
+2. `setLanguage()` updates language in localStorage and calls `updatePageTranslations()`
+3. `updatePageTranslations()` finds all elements with `data-i18n` attribute and updates text
+4. Page re-renders members and other dynamic content with new language
+
+### Adding New Translatable Text
+
+1. Add key-value pair to `translations.en` and `translations.he` in `translations.js`
+2. Add `data-i18n="keyname"` attribute to the HTML element
+3. For placeholders, use `data-i18n-placeholder="keyname"`
+4. Text will automatically translate when user switches language
+
 ## Notes for Future Changes
 
 - **Real-time updates** — The site fetches on page load only. To refresh, user must reload the page. If live updates are needed, add polling or WebSockets.
 - **Offline support** — Currently none. Add localStorage caching if needed.
 - **Performance** — Currently very fast (small JS, CSS, single HTTP request). Avoid adding heavy libraries.
+- **Member rendering** — When switching languages, `renderMembers()` is called automatically to re-render cards with translated text
