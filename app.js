@@ -15,16 +15,24 @@ async function loadMembers() {
     const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
     const data = JSON.parse(jsonStr);
 
-    allMembers = data.table.rows.map(row => ({
-      firstName: row.c[1]?.v || '',
-      lastName: row.c[2]?.v || '',
-      linkedin: row.c[3]?.v || '',
-      photo: row.c[4]?.v || '',
-      role: row.c[5]?.v || '',
-      location: row.c[6]?.v || '',
-      headline: row.c[8]?.v || '',
-      email: row.c[12]?.v || ''
-    })).filter(m => m.firstName || m.lastName);
+    allMembers = data.table.rows.map(row => {
+      let photo = row.c[4]?.v || '';
+      // Clean up photo URL if it has extra quotes
+      if (typeof photo === 'string') {
+        photo = photo.trim().replace(/^["']|["']$/g, '');
+      }
+
+      return {
+        firstName: row.c[1]?.v || '',
+        lastName: row.c[2]?.v || '',
+        linkedin: row.c[3]?.v || '',
+        photo: photo,
+        role: row.c[5]?.v || '',
+        location: row.c[6]?.v || '',
+        headline: row.c[8]?.v || '',
+        email: row.c[12]?.v || ''
+      };
+    }).filter(m => m.firstName || m.lastName);
 
     filteredMembers = allMembers;
     renderMembers();
@@ -86,8 +94,15 @@ function renderMembers() {
     const color = getColor(`${member.firstName} ${member.lastName}`);
     const linkedinUrl = member.linkedin ?
       (member.linkedin.startsWith('http') ? member.linkedin : `https://${member.linkedin}`) : '';
-    const avatarContent = member.photo && member.photo.trim()
-      ? `<img src="${escapeHtml(member.photo)}" alt="${escapeHtml(member.firstName)} ${escapeHtml(member.lastName)}" onerror="this.parentElement.innerHTML='${initials}'">`
+
+    // Use proxy for LinkedIn images to avoid CORS issues
+    let photoUrl = '';
+    if (member.photo && member.photo.trim()) {
+      photoUrl = `https://images.weserv.nl/?url=${encodeURIComponent(member.photo.replace(/^https?:\/\//, ''))}&w=400&h=400&fit=cover&output=jpg`;
+    }
+
+    const avatarContent = photoUrl
+      ? `<img src="${photoUrl}" alt="${escapeHtml(member.firstName)} ${escapeHtml(member.lastName)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='${color}'; this.parentElement.innerHTML='${initials}'; this.remove();">`
       : initials;
 
     return `
