@@ -48,7 +48,10 @@ main{max-width:1180px;margin:0 auto;padding:20px 24px 64px}
 .section-kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .section-title{font-family:'Frank Ruhl Libre',serif;font-size:28px;line-height:1.15;color:var(--text1)}
 .section-copy{font-size:14px;color:var(--text2);max-width:700px}
-.steering-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,340px));gap:18px;justify-content:center}
+.steering-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;justify-content:center}
+.steering-grid .card-top{padding:18px 14px 12px;min-height:238px}
+.steering-grid .avatar{width:92px;height:92px;border-radius:23px}
+.steering-grid .card-name{font-size:15px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
 .card{background:linear-gradient(180deg,#fffdfa,#fff);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;height:100%;transition:transform .2s,box-shadow .2s;box-shadow:0 14px 34px rgba(30,34,44,.05)}
 .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(16,24,36,.10)}
@@ -77,6 +80,7 @@ main{max-width:1180px;margin:0 auto;padding:20px 24px 64px}
 .btn-em:hover{background:var(--surface3)}
 .btn-em.on{background:var(--surface);color:var(--accent);border-color:var(--accent);cursor:default;user-select:all;word-break:break-all}
 .no-res{grid-column:1/-1;text-align:center;padding:60px;color:var(--text3);font-size:14px}
-@media(max-width:800px){.steering-grid{grid-template-columns:1fr}.intro-title,.section-title{font-size:24px}}
-@media(max-width:600px){.topbar-sub,.topbar-sep{display:none}.grid{grid-template-columns:1fr}.hero,.topic-bar,.intro,.section-block,.loading-note{padding-left:16px;padding-right:16px}.controls,main{padding-left:16px;padding-right:16px}.hero-shell{min-height:220px}}
+@media(max-width:900px){.steering-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.intro-title,.section-title{font-size:24px}}
+@media(max-width:600px){.steering-grid{grid-template-columns:1fr}.topbar-sub,.topbar-sep{display:none}.grid{grid-template-columns:1fr}.hero,.topic-bar,.intro,.section-block,.loading-note{padding-left:16px;padding-right:16px}.controls,main{padding-left:16px;padding-right:16px}.hero-shell{min-height:220px}}
 
