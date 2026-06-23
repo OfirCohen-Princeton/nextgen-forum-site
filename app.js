@@ -32,6 +32,8 @@ async function loadMembers() {
         role: row.c[5]?.v || '',
         location: row.c[6]?.v || '',
         headline: row.c[8]?.v || '',
+        subtitle: row.c[9]?.v || '',
+        highlights: row.c[10]?.v || '',
         email: row.c[12]?.v || '',
           isSteering: isSteeringMember(row.c[1]?.v || '', row.c[2]?.v || '', row)
       };
@@ -82,11 +84,15 @@ function filterMembers() {
       const normalizedRole = normalizeSearch(member.role);
       const normalizedLocation = normalizeSearch(member.location);
       const normalizedHeadline = normalizeSearch(member.headline);
+      const normalizedSubtitle = normalizeSearch(member.subtitle);
+      const normalizedHighlights = normalizeSearch(member.highlights);
 
       return fullName.includes(query) ||
              normalizedRole.includes(query) ||
              normalizedLocation.includes(query) ||
-             normalizedHeadline.includes(query);
+             normalizedHeadline.includes(query) ||
+             normalizedSubtitle.includes(query) ||
+             normalizedHighlights.includes(query);
     });
   }
 
@@ -152,6 +158,22 @@ function getPhotoUrl(photo) {
   return '';
 }
 
+function renderHighlights(highlights) {
+  const points = String(highlights || '')
+    .split(/\r?\n/)
+    .map(point => point.trim().replace(/^[\u2022*-]\s*/, ''))
+    .filter(Boolean)
+    .slice(0, 4);
+
+  if (!points.length) return '';
+
+  return `
+    <ul class="card-points">
+      ${points.map(point => `<li>${escapeHtml(point)}</li>`).join('')}
+    </ul>
+  `;
+}
+
 function renderCard(member) {
   const initials = getInitials(member.firstName, member.lastName);
   const color = getColor(`${member.firstName} ${member.lastName}`);
@@ -172,7 +194,8 @@ function renderCard(member) {
         </div>
         <div class="card-identity">
           <div class="card-name">${escapeHtml(member.firstName)} ${escapeHtml(member.lastName)}</div>
-          <div class="card-role">${escapeHtml(member.role)}</div>
+          <div class="card-role">${escapeHtml(member.headline || member.role)}</div>
+          ${member.subtitle ? `<div class="card-subtitle">${escapeHtml(member.subtitle)}</div>` : ''}
           ${member.location ? `<div class="card-loc">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
             <span>${escapeHtml(member.location)}</span>
@@ -180,7 +203,7 @@ function renderCard(member) {
         </div>
       </div>
       <div class="card-bio">
-        <div class="bio-short">${escapeHtml(member.headline || member.role)}</div>
+        <div class="bio-short">${renderHighlights(member.highlights)}</div>
       </div>
       <div class="card-footer">
         ${linkedinUrl ? `<a href="${linkedinUrl}" target="_blank" class="btn-li" title="LinkedIn">
