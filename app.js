@@ -33,7 +33,7 @@ async function loadMembers() {
         location: row.c[6]?.v || '',
         headline: row.c[8]?.v || '',
         email: row.c[12]?.v || '',
-        isSteering: (row.c[16]?.v || '').toString().toLowerCase().includes('v')
+          isSteering: isSteeringMember(row.c[1]?.v || '', row.c[2]?.v || '', row)
       };
     }).filter(m => m.firstName || m.lastName);
 
@@ -49,6 +49,12 @@ async function loadMembers() {
   }
 }
 
+function isSteeringMember(firstName, lastName, row) {
+  const flag = (row.c[18]?.v || row.c[16]?.v || '').toString().trim().toLowerCase();
+  const normalizedName = `${firstName} ${lastName}`.replace(/\s+/g, '');
+  const steeringNames = ['אופירכהן', 'עמריעטר', 'מאיהשילוני', 'תמרכרמלי'];
+  return flag.includes('v') || steeringNames.includes(normalizedName);
+}
 function getInitials(firstName, lastName) {
   return ((firstName ? firstName[0] : '') + (lastName ? lastName[0] : '')).toUpperCase();
 }
