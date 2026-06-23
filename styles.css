@@ -49,7 +49,7 @@ main{max-width:1180px;margin:0 auto;padding:20px 24px 64px}
 .section-title{font-family:'Frank Ruhl Libre',serif;font-size:28px;line-height:1.15;color:var(--text1)}
 .section-copy{font-size:14px;color:var(--text2);max-width:700px}
 .steering-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;justify-content:center}
-.steering-grid .card-top{padding:18px 14px 12px;min-height:238px}
+.steering-grid .card-top{padding:18px 14px 12px;height:320px;min-height:320px;box-sizing:border-box}
 .steering-grid .avatar{width:92px;height:92px;border-radius:23px}
 .steering-grid .card-name{font-size:15px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
@@ -64,13 +64,16 @@ main{max-width:1180px;margin:0 auto;padding:20px 24px 64px}
 .card-subtitle{font-size:11.5px;color:var(--accent2);line-height:1.6;min-height:34px;margin-bottom:6px}
 .card-loc{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:11px;color:var(--text3);margin-top:2px;max-width:100%}
 .card-loc span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-.card-bio{padding:0 18px 14px;font-size:12px;color:var(--text2);line-height:1.7;border-top:1px solid var(--border);padding-top:12px;text-align:center;min-height:190px;max-height:190px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+.card-bio{padding:12px 18px 14px;font-size:12px;color:var(--text2);line-height:1.7;border-top:1px solid var(--border);text-align:center;min-height:190px;overflow:visible;display:flex;flex-direction:column;justify-content:flex-start}
 .card.expanded .card-bio{max-height:none;overflow:visible}
 .bio-short{display:block}
 .bio-full{display:none;margin-top:10px}
 .card-points{list-style:none;display:flex;flex-direction:column;gap:8px;text-align:right}
 .card-points li{position:relative;padding-right:14px}
 .card-points li::before{content:'';position:absolute;right:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+[dir="ltr"] .card-points{text-align:left}
+[dir="ltr"] .card-points li{padding-right:0;padding-left:14px}
+[dir="ltr"] .card-points li::before{right:auto;left:0}
 .bio-full-text{font-size:12px;line-height:1.8;color:var(--text2);text-align:right}
 .bio-toggle{background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif;font-size:11.5px;color:var(--accent);margin-top:8px;padding:0;display:inline-flex;align-items:center;gap:3px}
 .card-footer{margin-top:auto;padding:10px 16px 14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap}
@@ -82,5 +85,5 @@ main{max-width:1180px;margin:0 auto;padding:20px 24px 64px}
 .no-res{grid-column:1/-1;text-align:center;padding:60px;color:var(--text3);font-size:14px}
 @media(max-width:900px){.steering-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:800px){.intro-title,.section-title{font-size:24px}}
-@media(max-width:600px){.steering-grid{grid-template-columns:1fr}.topbar-sub,.topbar-sep{display:none}.grid{grid-template-columns:1fr}.hero,.topic-bar,.intro,.section-block,.loading-note{padding-left:16px;padding-right:16px}.controls,main{padding-left:16px;padding-right:16px}.hero-shell{min-height:220px}}
+@media(max-width:600px){.steering-grid{grid-template-columns:1fr}.steering-grid .card-top{height:auto;min-height:0}.topbar-sub,.topbar-sep{display:none}.grid{grid-template-columns:1fr}.hero,.topic-bar,.intro,.section-block,.loading-note{padding-left:16px;padding-right:16px}.controls,main{padding-left:16px;padding-right:16px}.hero-shell{min-height:220px}}
 

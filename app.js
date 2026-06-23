@@ -9,6 +9,7 @@ let regularMembers = [];
 
 async function loadMembers() {
   try {
+    const currentLang = getLanguage();
     const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}`;
     const response = await fetch(url);
     const text = await response.text();
@@ -17,7 +18,7 @@ async function loadMembers() {
     const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
     const data = JSON.parse(jsonStr);
 
-    allMembers = data.table.rows.map(row => {
+    const sheetMembers = data.table.rows.map(row => {
       let photo = row.c[4]?.v || '';
       // Clean up photo URL if it has extra quotes
       if (typeof photo === 'string') {
@@ -38,6 +39,34 @@ async function loadMembers() {
           isSteering: isSteeringMember(row.c[1]?.v || '', row.c[2]?.v || '', row)
       };
     }).filter(m => m.firstName || m.lastName);
+    if (currentLang === 'en') {
+      const englishResponse = await fetch(`members_en.json?v=${Date.now()}`);
+      if (!englishResponse.ok) throw new Error('English member data could not be loaded');
+      const englishMembers = await englishResponse.json();
+
+      allMembers = sheetMembers.map((sheetMember, index) => {
+        const englishMember = englishMembers[index] || {};
+        const nameParts = String(englishMember.name || '').trim().split(/\s+/);
+        const englishHighlights = Array.isArray(englishMember.highlights) && englishMember.highlights.length
+          ? englishMember.highlights
+          : englishMember.shortBio || '';
+
+        return {
+          ...sheetMember,
+          firstName: nameParts[0] || sheetMember.firstName,
+          lastName: nameParts.slice(1).join(' ') || sheetMember.lastName,
+          role: englishMember.role || '',
+          location: englishMember.location || '',
+          headline: englishMember.headline || englishMember.role || '',
+          subtitle: englishMember.subtitle || '',
+          highlights: englishHighlights,
+          isSteering: sheetMember.isSteering || Boolean(englishMember.isSteering)
+        };
+      });
+    } else {
+      allMembers = sheetMembers;
+    }
+
 
     // Separate into steering and regular members
     steeringMembers = allMembers.filter(m => m.isSteering);
@@ -159,8 +188,16 @@ function getPhotoUrl(photo) {
 }
 
 function renderHighlights(highlights) {
-  const points = String(highlights || '')
-    .split(/\r?\n/)
+  let points = Array.isArray(highlights)
+    ? highlights
+    : String(highlights || '').split(/\r?\n/);
+
+  if (points.length === 1 && points[0]) {
+    const sentences = String(points[0]).match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+    if (sentences && sentences.length > 1) points = sentences;
+  }
+
+  points = points
     .map(point => point.trim().replace(/^[\u2022*-]\s*/, ''))
     .filter(Boolean)
     .slice(0, 4);
@@ -212,7 +249,7 @@ function renderCard(member) {
         </a>` : ''}
         ${member.email ? `<button class="btn-em" onclick="copyEmail('${escapeHtml(member.email)}')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          אימייל
+          ${getLanguage() === 'en' ? 'Email' : '\u05d0\u05d9\u05de\u05d9\u05d9\u05dc'}
         </button>` : ''}
       </div>
     </div>
@@ -221,7 +258,7 @@ function renderCard(member) {
 
 function copyEmail(email) {
   navigator.clipboard.writeText(email).then(() => {
-    alert('אימייל הועתק: ' + email);
+    alert((getLanguage() === 'en' ? 'Email copied: ' : '\u05d0\u05d9\u05de\u05d9\u05d9\u05dc \u05d4\u05d5\u05e2\u05ea\u05e7: ') + email);
   });
 }
 

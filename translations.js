@@ -48,6 +48,7 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
   updatePageTranslations();
+  loadMembers();
 }
 
 function initLanguage() {
