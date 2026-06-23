@@ -124,17 +124,35 @@ function escapeHtml(text) {
   return String(text || '').replace(/[&<>"']/g, m => map[m]);
 }
 
+function getGoogleDriveFileId(url) {
+  const value = String(url || '').trim();
+  const fileMatch = value.match(/drive\.google\.com\/file\/d\/([^\/?#]+)/i);
+  if (fileMatch) return fileMatch[1];
+  const idMatch = value.match(/[?&]id=([^&#]+)/i);
+  if (/drive\.google\.com/i.test(value) && idMatch) return idMatch[1];
+  if (/^[A-Za-z0-9_-]{20,}$/.test(value)) return value;
+  return '';
+}
+
+function getPhotoUrl(photo) {
+  const raw = String(photo || '').trim().replace(/^["']|["']$/g, '');
+  if (!raw) return '';
+  const imageMatch = raw.match(/=image\(\s*["']([^"']+)["']/i);
+  const value = imageMatch ? imageMatch[1].trim() : raw;
+  const driveId = getGoogleDriveFileId(value);
+  if (driveId) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(driveId)}&sz=w400`;
+  if (/^https?:\/\/media\.licdn\.com\//i.test(value)) return `https://images.weserv.nl/?url=${encodeURIComponent(value.replace(/^https?:\/\//i, ''))}&w=400&h=400&fit=cover&output=jpg`;
+  if (/^https?:\/\//i.test(value)) return value;
+  return '';
+}
+
 function renderCard(member) {
   const initials = getInitials(member.firstName, member.lastName);
   const color = getColor(`${member.firstName} ${member.lastName}`);
   const linkedinUrl = member.linkedin ?
     (member.linkedin.startsWith('http') ? member.linkedin : `https://${member.linkedin}`) : '';
 
-  // Use proxy for LinkedIn images to avoid CORS issues
-  let photoUrl = '';
-  if (member.photo && member.photo.trim()) {
-    photoUrl = `https://images.weserv.nl/?url=${encodeURIComponent(member.photo.replace(/^https?:\/\//, ''))}&w=400&h=400&fit=cover&output=jpg`;
-  }
+  const photoUrl = getPhotoUrl(member.photo);
 
   const avatarContent = photoUrl
     ? `<img src="${photoUrl}" alt="${escapeHtml(member.firstName)} ${escapeHtml(member.lastName)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='${color}'; this.parentElement.innerHTML='${initials}'; this.remove();">`
