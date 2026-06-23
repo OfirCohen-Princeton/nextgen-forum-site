@@ -38,6 +38,23 @@ async function loadMembers() {
         email: row.c[12]?.v || '',
           isSteering: isSteeringMember(row.c[1]?.v || '', row.c[2]?.v || '', row)
       };
+    const normalizeLinkedIn = value => {
+      const match = String(value || '').toLowerCase().match(/linkedin\.com\/in\/([^/?#]+)/);
+      return match ? match[1].replace(/\/+$/, '') : '';
+    };
+    const getEmails = value => String(value || '')
+      .toLowerCase()
+      .match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/g) || [];
+    const findEnglishMember = (sheetMember, sheetIndex) => {
+      const sheetLinkedIn = normalizeLinkedIn(sheetMember.linkedin);
+      const sheetEmails = getEmails(sheetMember.email);
+      return englishMembers.find(member => {
+        const linkedInMatches = sheetLinkedIn && normalizeLinkedIn(member.linkedin) === sheetLinkedIn;
+        const memberEmails = getEmails(member.email);
+        const emailMatches = sheetEmails.some(email => memberEmails.includes(email));
+        return linkedInMatches || emailMatches;
+      }) || englishMembers.find(member => member.sheetIndex === sheetIndex) || {};
+    };
     }).filter(m => m.firstName || m.lastName);
     if (currentLang === 'en') {
       const englishResponse = await fetch(`members_en.json?v=${Date.now()}`);
@@ -45,7 +62,7 @@ async function loadMembers() {
       const englishMembers = await englishResponse.json();
 
       allMembers = sheetMembers.map((sheetMember, index) => {
-        const englishMember = englishMembers[index] || {};
+        const englishMember = findEnglishMember(sheetMember, index);
         const nameParts = String(englishMember.name || '').trim().split(/\s+/);
         const englishHighlights = Array.isArray(englishMember.highlights) && englishMember.highlights.length
           ? englishMember.highlights
@@ -60,7 +77,7 @@ async function loadMembers() {
           headline: englishMember.headline || englishMember.role || '',
           subtitle: englishMember.subtitle || '',
           highlights: englishHighlights,
-          isSteering: sheetMember.isSteering || Boolean(englishMember.isSteering)
+          isSteering: sheetMember.isSteering
         };
       });
     } else {
@@ -191,11 +208,6 @@ function renderHighlights(highlights) {
   let points = Array.isArray(highlights)
     ? highlights
     : String(highlights || '').split(/\r?\n/);
-
-  if (points.length === 1 && points[0]) {
-    const sentences = String(points[0]).match(/[^.!?]+[.!?]+|[^.!?]+$/g);
-    if (sentences && sentences.length > 1) points = sentences;
-  }
 
   points = points
     .map(point => point.trim().replace(/^[\u2022*-]\s*/, ''))

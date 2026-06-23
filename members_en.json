@@ -181,6 +181,7 @@
   },
   {
     "name": "Tamar Carmeli",
+    "sheetIndex": 17,
     "role": "Defense, Technology and Public Policy",
     "location": "Washington, DC",
     "headline": "Operating at the intersection of defense, technology and policy",
@@ -193,6 +194,7 @@
   },
   {
     "name": "Michal Gal",
+    "sheetIndex": 18,
     "role": "Strategic Advisor to CEOs and Senior Executives",
     "location": "Israel",
     "headline": "Strategy, cross-sector partnerships and AI policy",
@@ -205,6 +207,7 @@
   },
   {
     "name": "Regev Ortal",
+    "sheetIndex": 19,
     "role": "Government Relations and Public Affairs",
     "location": "United States",
     "headline": "U.S.-Israel relations, public affairs and Jewish community engagement",
@@ -216,6 +219,7 @@
   },
   {
     "name": "Jacob Reines",
+    "sheetIndex": 20,
     "role": "Researcher, United Democracy Project",
     "location": "Washington, DC",
     "headline": "International relations, military strategy and U.S.-Israel relations",
