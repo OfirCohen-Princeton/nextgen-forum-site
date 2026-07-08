@@ -38,28 +38,30 @@ async function loadMembers() {
         email: row.c[12]?.v || '',
           isSteering: isSteeringMember(row.c[1]?.v || '', row.c[2]?.v || '', row)
       };
-    const normalizeLinkedIn = value => {
-      const match = String(value || '').toLowerCase().match(/linkedin\.com\/in\/([^/?#]+)/);
-      return match ? match[1].replace(/\/+$/, '') : '';
-    };
-    const getEmails = value => String(value || '')
-      .toLowerCase()
-      .match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/g) || [];
-    const findEnglishMember = (sheetMember, sheetIndex) => {
-      const sheetLinkedIn = normalizeLinkedIn(sheetMember.linkedin);
-      const sheetEmails = getEmails(sheetMember.email);
-      return englishMembers.find(member => {
-        const linkedInMatches = sheetLinkedIn && normalizeLinkedIn(member.linkedin) === sheetLinkedIn;
-        const memberEmails = getEmails(member.email);
-        const emailMatches = sheetEmails.some(email => memberEmails.includes(email));
-        return linkedInMatches || emailMatches;
-      }) || englishMembers.find(member => member.sheetIndex === sheetIndex) || {};
-    };
     }).filter(m => m.firstName || m.lastName);
+
     if (currentLang === 'en') {
       const englishResponse = await fetch(`members_en.json?v=${Date.now()}`);
       if (!englishResponse.ok) throw new Error('English member data could not be loaded');
       const englishMembers = await englishResponse.json();
+
+      const normalizeLinkedIn = value => {
+        const match = String(value || '').toLowerCase().match(/linkedin\.com\/in\/([^/?#]+)/);
+        return match ? match[1].replace(/\/+$/, '') : '';
+      };
+      const getEmails = value => String(value || '')
+        .toLowerCase()
+        .match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/g) || [];
+      const findEnglishMember = (sheetMember, sheetIndex) => {
+        const sheetLinkedIn = normalizeLinkedIn(sheetMember.linkedin);
+        const sheetEmails = getEmails(sheetMember.email);
+        return englishMembers.find(member => {
+          const linkedInMatches = sheetLinkedIn && normalizeLinkedIn(member.linkedin) === sheetLinkedIn;
+          const memberEmails = getEmails(member.email);
+          const emailMatches = sheetEmails.some(email => memberEmails.includes(email));
+          return linkedInMatches || emailMatches;
+        }) || englishMembers.find(member => member.sheetIndex === sheetIndex) || {};
+      };
 
       allMembers = sheetMembers.map((sheetMember, index) => {
         const englishMember = findEnglishMember(sheetMember, index);
